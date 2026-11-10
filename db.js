@@ -1,12 +1,15 @@
-import "dotenv/config";
-import mysql from "mysql2";
 
-const conexao = mysql.createConnection({
-    host: process.envDB_HOST,
-    port: Number(process.envDB_PORT),
-    user: process.envDB_USER,
-    password: process.envDB_PASSWORD,
-    database: process.envDB_NAME,
+require("dotenv").config();
+
+const mariadb = require("mariadb");
+
+const pool = mariadb.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    port: Number(process.env.DB_PORT || 3306),
+    connectionLimit: 5
 });
 
-export default conexao;
+module.exports = pool;

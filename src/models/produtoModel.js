@@ -1,24 +1,26 @@
-// Importa a conexão com o banco
-import conectarBanco from '../../db.js';
-// Cria a classe Produto
-class Produto {
-    // Lista todos os produtos
-    static async listar() {
-        const conexao = conectarBanco();
-        const resultado = await conexao.query(
-            'SELECT * FROM produto'
-        );
-        return resultado;
-    }
-    // Busca produto pelo ID
-    static async buscarPorId(id) {
-        const conexao = conectarBanco();
-        const resultado = await conexao.query(
-            'SELECT * FROM produto WHERE id_produto = ?',
-            [id]
-        );
-        return resultado;
-    }
-}
-// Exporta a classe
-export default Produto;
+
+import conexao from '../../db.js';
+
+// Lista todos os produtos
+export function listar(callback) {
+    const sql = "SELECT * FROM produto ORDER BY id_produto";
+    conexao.query(sql, callback);
+};
+
+// Cadastra um produto
+export function criar(dados, callback) {
+    const sql = "INSERT INTO produto (nome, descricao, estoque, preco) VALUES (?, ?, ?, ?)";
+    conexao.query(sql, [dados.nome, dados.descricao, dados.estoque, dados.preco], callback);
+};
+
+// Atualiza um produto
+export function atualizar(id, dados, callback) {
+    const sql = "UPDATE produto SET nome = ?, descricao = ?, estoque = ?, preco = ? WHERE id_produto = ?";
+    conexao.query(sql, [dados.nome, dados.descricao, dados.estoque, dados.preco, id], callback);
+};
+
+// Exclui um produto
+export function excluir(id, callback) {
+    const sql = "DELETE FROM produto WHERE id_produto = ?";
+    conexao.query(sql, [id], callback);
+};

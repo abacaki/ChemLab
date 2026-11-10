@@ -1,9 +1,18 @@
-import express from 'express';
 
-import ProdutoController from '../controllers/produtoController.js';
+const express = require('express');
 const router = express.Router();
-// Rota para listar produtos
-router.get('/', ProdutoController.listar);
-// Rota para buscar produto pelo ID
-router.get('/:id', ProdutoController.buscarPorId);
-export default router;
+
+const produtoController = require('../controllers/produtoController');
+const autenticacao = require('../middlewares/autenticacao');
+const validarId = require('../middlewares/validarId');
+
+// Consultar produtos sem precisar fazer login
+router.get('/', produtoController.listar);
+router.get('/:id', validarId, produtoController.buscarPorId);
+
+// Operações administrativas
+router.post('/', autenticacao, produtoController.criar);
+router.put('/:id', autenticacao, validarId, produtoController.atualizar);
+router.delete('/:id', autenticacao, validarId, produtoController.excluir);
+
+module.exports = router;
