@@ -1,4 +1,4 @@
-function validarId(req, res, next) {
+export default function validarId(req, res, next) {
 
     // Recebe o ID enviado pela URL
     const id = req.params.id;
@@ -13,5 +13,3 @@ function validarId(req, res, next) {
     // Se estiver correto, continua a requisição
     next();
 }
-
-module.exports = validarId;

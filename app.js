@@ -1,108 +1,101 @@
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import conexao from "./db.js";
 
-// Carrega as configurações do arquivo .env.
-// Nele ficam armazenadas informações como a porta do servidor
-// e outras configurações que não devem ficar diretamente no código.
-require("dotenv").config();
+// Importa o middleware responsável por tratar erros
+import tratarErro from "./src/middlewares/tratarErro.js";
 
-// Importa o Express, responsável por criar o servidor
-// e gerenciar as rotas da aplicação.
-const express = require("express");
+// Importa as rotas de cada parte do sistema
+import clienteRoutes from "./src/routes/clienteRoutes.js";
+import usuarioRoutes from "./src/routes/usuarioRoutes.js";
+import produtoRoutes from "./src/routes/produtoRoutes.js";
+import carrinhoRoutes from "./src/routes/carrinhoRoutes.js";
+import itemPedidoRoutes from "./src/routes/itemPedidoRoutes.js";
+import pedidoRoutes from "./src/routes/pedidoRoutes.js";
+import vendaRoutes from "./src/routes/vendaRoutes.js";
+import notaFiscalRoutes from "./src/routes/notaFiscalRoutes.js";
 
-// Importa o CORS, que permite que o front-end
-// faça requisições para o back-end.
-const cors = require("cors");
-
-// Importa o módulo Path, utilizado para trabalhar
-// com caminhos de arquivos e pastas.
-const path = require("path");
-
-// Cria a aplicação utilizando o Express.
 const app = express();
 
+const PORTA = Number(process.env.PORT || process.env.PORTA || 3000);
 
-// CONFIGURAÇÕES DO SERVIDOR
-
-// Permite que aplicações de outras origens
-// possam acessar a API do ChemLab.
 app.use(cors());
 
-// Permite que o servidor receba dados enviados
-// no formato JSON nas requisições.
+// Permite receber e interpretar dados no formato JSON
 app.use(express.json());
 
-// Permite receber dados enviados através de formulários.
-// O extended: true permite interpretar objetos e arrays.
+// Permite receber dados enviados por formulários
 app.use(express.urlencoded({ extended: true }));
 
-
-// ARQUIVOS PÚBLICOS DO FRONT-END
-
-// Informa ao Express que os arquivos da pasta public
-// podem ser acessados pelo navegador.
-// Exemplo: HTML, CSS, JavaScript e imagens.
-app.use(express.static(path.join(__dirname, "public")));
-
-
-// ROTAS DA API
-
-// Cada rota conecta um endereço da API
-// ao arquivo responsável por controlar suas operações.
-
-// Rotas relacionadas ao cadastro e gerenciamento de clientes.
-app.use("/api/clientes", require("./src/routes/clienteRoutes"));
-
-// Rotas relacionadas aos usuários do sistema.
-app.use("/api/usuarios", require("./src/routes/usuarioRoutes"));
-
-// Rotas responsáveis pelo cadastro e gerenciamento dos produtos.
-app.use("/api/produtos", require("./src/routes/produtoRoutes"));
-
-// Rotas responsáveis pelo gerenciamento dos carrinhos de compras.
-app.use("/api/carrinhos", require("./src/routes/carrinhoRoutes"));
-
-// Rotas responsáveis pelos itens adicionados aos pedidos.
-app.use("/api/itens-pedido", require("./src/routes/itemPedidoRoutes"));
-
-// Rotas responsáveis pelo gerenciamento dos pedidos.
-app.use("/api/pedidos", require("./src/routes/pedidoRoutes"));
-
-// Rotas responsáveis pelo registro e gerenciamento das vendas.
-app.use("/api/vendas", require("./src/routes/vendaRoutes"));
-
-// Rotas responsáveis pela emissão e consulta de notas fiscais.
-app.use("/api/notas-fiscais", require("./src/routes/notaFiscalRoutes"));
-
-// Rotas responsáveis pela autenticação e login dos usuários.
-app.use("/api/auth", require("./src/routes/authRoutes"));
-
-
-// ROTA NÃO ENCONTRADA
-
-// Caso alguém tente acessar um endereço que não existe
-// na aplicação, o servidor retorna o status HTTP 404.
-app.use((req, res) => {
-    res.status(404).json({
-        erro: "Rota não encontrada."
-    });
+// Cria uma rota inicial para verificar se a API está funcionando
+app.get("/", (req, res) => {
+    
+    res.status(200).json({ mensagem: "API do ChemLab funcionando" });
 });
 
+// Define o endereço das rotas de carrinhos
+app.use("/carrinhos", carrinhoRoutes);
 
-// TRATAMENTO DE ERROS
+// Define o endereço das rotas de clientes
+app.use("/clientes", clienteRoutes);
 
-// Importa o middleware responsável por capturar
-// e tratar erros que acontecem durante a execução da API.
-app.use(require("./src/middlewares/tratarErro"));
+// Define o endereço das rotas de usuários
+app.use("/usuarios", usuarioRoutes);
 
+// Define o endereço das rotas de produtos
+app.use("/produtos", produtoRoutes);
 
-// INICIALIZAÇÃO DO SERVIDOR
+// Define o endereço das rotas dos itens dos pedidos
+app.use("/itens-pedido", itemPedidoRoutes);
 
-// Define a porta do servidor.
-// Primeiro tenta utilizar a porta definida no arquivo .env.
-// Caso ela não exista, utiliza a porta 3000.
-const PORT = process.env.PORT || 3000;
+// Define o endereço das rotas de pedidos
+app.use("/pedidos", pedidoRoutes);
 
-// Inicia o servidor e mostra uma mensagem no terminal
-// informando o endereço em que o ChemLab está funcionando.
-app.listen(PORT, () => {
-    console.log(`ChemLab rodando em http://localhost:${PORT}`);
+// Define o endereço das rotas de vendas
+app.use("/vendas", vendaRoutes);
+
+// Define o endereço das rotas de notas fiscais
+app.use("/notas-fiscais", notaFiscalRoutes);
+
+// Middleware para identificar endereços que não existem na API
+app.use((req, res) => {
+    // Retorna o status 404 quando uma rota não é encontrada
+    res.status(404).json({ erro: "Rota não encontrada" });
+});
+
+// Middleware responsável por tratar os erros da aplicação
+app.use(tratarErro);
+
+// Tenta conectar ao banco de dados antes de iniciar o servidor
+conexao.connect((erro) => {
+
+    // Verifica se ocorreu algum erro na conexão
+    if (erro) {
+
+        // Mostra a mensagem de erro no terminal
+        console.error("Erro ao conectar ao banco:", erro.code || erro.message);
+
+        // Encerra a aplicação porque não foi possível conectar ao banco
+        process.exit(1);
+    }
+
+    // Informa que a conexão com o banco foi realizada
+    console.log("Conectado ao banco de dados");
+
+    // Inicia o servidor utilizando a porta definida anteriormente
+    const servidor = app.listen(PORTA, () => {
+
+        //Mostra no Terminal
+        console.log(`Servidor iniciado em http://localhost:${PORTA}`);
+    });
+
+    // Verifica se ocorreu algum erro ao iniciar o servidor
+    servidor.on("error", (erro) => {
+
+        console.error("Erro ao iniciar servidor:", erro.code || erro.message);
+
+        // Encerra a conexão com o banco
+        conexao.end(() => process.exit(1));
+    });
 });

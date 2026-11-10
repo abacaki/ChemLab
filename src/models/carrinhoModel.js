@@ -1,4 +1,3 @@
-
 import conexao from '../../db.js';
 
 // Lista todos os carrinhos

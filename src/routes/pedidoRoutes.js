@@ -1,19 +1,13 @@
+import express from 'express';
+import * as pedidoController from '../controllers/pedidoController.js';
+import validarId from '../middlewares/validarId.js';
 
-const express = require('express');
 const router = express.Router();
 
-const pedidoController = require('../controllers/pedidoController');
-const autenticacao = require('../middlewares/autenticacao');
-const validarId = require('../middlewares/validarId');
+router.get('/', pedidoController.listar);
+router.post('/', pedidoController.criar);
+router.post('/:id/finalizar', validarId, pedidoController.finalizar);
+router.put('/:id', validarId, pedidoController.atualizar);
+router.delete('/:id', validarId, pedidoController.excluir);
 
-router.get('/', autenticacao, pedidoController.listar);
-router.get('/:id', autenticacao, validarId, pedidoController.buscarPorId);
-router.post('/', autenticacao, pedidoController.criar);
-
-// Finalizar pedido
-router.post('/:id/finalizar', autenticacao, validarId, pedidoController.finalizar);
-
-router.put('/:id', autenticacao, validarId, pedidoController.atualizar);
-router.delete('/:id', autenticacao, validarId, pedidoController.excluir);
-
-module.exports = router;
+export default router;

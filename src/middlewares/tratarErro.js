@@ -1,5 +1,4 @@
-function tratarErro(erro, req, res, next) {
-
+export default function tratarErro(erro, req, res, next) {
     // Mostra o erro no terminal para ajudar na identificação
     console.error("Erro na aplicação:", erro);
 
@@ -32,5 +31,3 @@ function tratarErro(erro, req, res, next) {
         erro: "Ocorreu um erro interno no servidor."
     });
 }
-
-module.exports = tratarErro;
