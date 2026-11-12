@@ -10,11 +10,9 @@ http:
     type: json
     data: |-
       {
-          "id_venda": 1,
-          "data_venda": "",
-          "forma_pagamento": "CARTAO_CREDITO",
-          "valor_pago": "250.00",
-          "id_pedido": 1
+          "chave_acesso": "1",
+          "data_emissao": "",
+          "id_venda": 1
         }
   auth: inherit
 

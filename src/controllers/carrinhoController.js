@@ -23,10 +23,10 @@ export function buscarPorId(req, res, next) {
 
 // Cadastra um carrinho
 export function criar(req, res, next) {
-    const {id_cliente, status_carrinho, data_criacao } = req.body ?? {};
+    const { id_cliente, status_carrinho, data_criacao } = req.body ?? {};
 
-    if (!id_cliente) {
-        return res.status(400).json({ erro: "Informe o id_cliente." });
+    if (!id_cliente || status_carrinho === undefined) {
+        return res.status(400).json({ erro: "Informe o id_cliente e status_carrinho." });
     }
 
     const dados = {
@@ -47,13 +47,17 @@ export function criar(req, res, next) {
 // Atualiza um carrinho
 export function atualizar(req, res, next) {
     const id = req.params.id;
-    const { status_carrinho, id_cliente } = req.body ?? {};
+    const { data_criacao, status_carrinho, id_cliente } = req.body ?? {};
 
-    if (status_carrinho === undefined && !id_cliente) {
-        return res.status(400).json({ erro: "Informe status_carrinho ou id_cliente para atualizar." });
+    if (!id_cliente && status_carrinho === undefined && !data_criacao) {
+        return res.status(400).json({ erro: "Informe ao menos um campo para atualizar." });
     }
 
-    const dados = { status_carrinho, id_cliente };
+    const dados = {
+        data_criacao: data_criacao || new Date(),
+        status_carrinho: status_carrinho ?? 1,
+        id_cliente: id_cliente
+    };
 
     carrinhoModel.atualizar(id, dados, (erro, resultado) => {
         if (erro) return next(erro);

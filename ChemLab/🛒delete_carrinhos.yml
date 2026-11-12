@@ -1,0 +1,18 @@
+info:
+  name: 🛒delete_carrinhos
+  type: http
+  seq: 25
+
+http:
+  method: DELETE
+  url: http://localhost:3000/carrinhos/9
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

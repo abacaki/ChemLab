@@ -1,0 +1,18 @@
+info:
+  name: 📄delete_itens-pedidos
+  type: http
+  seq: 29
+
+http:
+  method: DELETE
+  url: http://localhost:3000/itens-pedido/13
+  body:
+    type: json
+    data: ""
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,24 @@
+info:
+  name: 🛒put_carrinhos
+  type: http
+  seq: 18
+
+http:
+  method: PUT
+  url: http://localhost:3000/carrinhos
+  body:
+    type: json
+    data: |-
+      {
+          "id_carrinho": 4,
+          "data_criacao": "",
+          "status_carrinho": 3,
+          "id_cliente": 2
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

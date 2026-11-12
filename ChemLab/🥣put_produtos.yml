@@ -1,0 +1,24 @@
+info:
+  name: 🥣put_produtos
+  type: http
+  seq: 21
+
+http:
+  method: PUT
+  url: http://localhost:3000/produtos/2
+  body:
+    type: json
+    data: |-
+      {
+          "nome": "yuro",
+          "descricao": "me mata pfvr",
+          "preco": "67.42",
+          "estoque": 6742
+        }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,23 @@
+info:
+  name: 📰put_notas-fiscais
+  type: http
+  seq: 25
+
+http:
+  method: PUT
+  url: http://localhost:3000/notas-fiscais/1
+  body:
+    type: json
+    data: |-
+      {
+          "chave_acesso": "1",
+          "data_emissao": "",
+          "id_venda": 1
+        }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

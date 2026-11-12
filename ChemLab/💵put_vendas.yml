@@ -1,0 +1,24 @@
+info:
+  name: 💵put_vendas
+  type: http
+  seq: 24
+
+http:
+  method: PUT
+  url: http://localhost:3000/vendas/3
+  body:
+    type: json
+    data: |2-
+       {
+          "data_venda": "",
+          "forma_pagamento": "BOLETO",
+          "valor_pago": "210.00",
+          "id_pedido": 4
+        }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

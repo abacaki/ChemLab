@@ -1,0 +1,15 @@
+info:
+  name: 📝put_pedidos
+  type: http
+  seq: 23
+
+http:
+  method: PUT
+  url: http://localhost:3000/pedidos/4
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
