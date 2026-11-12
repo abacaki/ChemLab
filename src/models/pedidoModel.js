@@ -1,41 +1,25 @@
-import * as pedidoModel from "../models/pedidoModel.js";
+import conexao from '../../db.js';
 
-export function listar(req, res, next) {
-    pedidoModel.listar((erro, resultado) => {
-        if (erro) return next(erro);
-        return res.status(200).json(resultado);
-    });
-}
+// Lista todos os pedidos
+export function listar(callback) {
+    const sql = "SELECT * FROM pedido ORDER BY id_pedido";
+    conexao.query(sql, callback);
+};
 
-export function criar(req, res, next) {
-    const dados = req.body;
-    pedidoModel.criar(dados, (erro, resultado) => {
-        if (erro) return next(erro);
-        return res.status(201).json({ mensagem: "Pedido criado com sucesso!", id: resultado.insertId });
-    });
-}
+// Cadastra um pedido
+export function criar(dados, callback) {
+    const sql = "INSERT INTO pedido (data_pedido, status_pedido, valor_total, id_cliente, id_carrinho) VALUES (?, ?, ?, ?, ?)";
+    conexao.query(sql, [dados.data_pedido, dados.status_pedido, dados.valor_total, dados.id_cliente, dados.id_carrinho], callback);
+};
 
-export function finalizar(req, res, next) {
-    const id = req.params.id;
-    pedidoModel.finalizar(id, (erro, resultado) => {
-        if (erro) return next(erro);
-        return res.status(200).json({ mensagem: "Pedido finalizado com sucesso!" });
-    });
-}
+// Atualiza um pedido
+export function atualizar(id, dados, callback) {
+    const sql = "UPDATE pedido SET data_pedido = ?, status_pedido = ?, valor_total = ?, id_cliente = ?, id_carrinho = ? WHERE id_pedido = ?";
+    conexao.query(sql, [dados.data_pedido, dados.status_pedido, dados.valor_total, dados.id_cliente, dados.id_carrinho, id], callback);
+};
 
-export function atualizar(req, res, next) {
-    const id = req.params.id;
-    const dados = req.body;
-    pedidoModel.atualizar(id, dados, (erro, resultado) => {
-        if (erro) return next(erro);
-        return res.status(200).json({ mensagem: "Pedido atualizado com sucesso!" });
-    });
-}
-
-export function excluir(req, res, next) {
-    const id = req.params.id;
-    pedidoModel.excluir(id, (erro, resultado) => {
-        if (erro) return next(erro);
-        return res.status(200).json({ mensagem: "Pedido excluído com sucesso!" });
-    });
-}
+// Exclui um pedido
+export function excluir(id, callback) {
+    const sql = "DELETE FROM pedido WHERE id_pedido = ?";
+    conexao.query(sql, [id], callback);
+};

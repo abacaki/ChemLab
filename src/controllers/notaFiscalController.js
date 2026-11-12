@@ -10,20 +10,24 @@ export function listar(req, res, next) {
 
 // Cadastra uma nota fiscal
 export function criar(req, res, next) {
-    const { data_venda, forma_pagamento, valor_pago, id_pedido } = req.body ?? {};
+    const { chave_acesso, data_emissao, id_venda } = req.body ?? {};
 
-    if (!data_venda || !forma_pagamento || !valor_pago || !id_pedido) {
+    if (!chave_acesso || !id_venda) {
         return res.status(400).json({ 
-            erro: "Informe data_venda, forma_pagamento, valor pago e id_pedido." 
+            erro: "Informe chave_acesso e id_venda." 
         });
     }
 
-    const dados = { data_venda, forma_pagamento, valor_pago, id_pedido };
+    const dados = {
+        chave_acesso,
+        data_emissao: data_emissao || new Date(),
+        id_venda
+    };
 
     notaFiscalModel.criar(dados, (erro, resultado) => {
         if (erro) return next(erro);
         return res.status(201).json({
-            mensagem: "Nota fical cadastrada com sucesso!",
+            mensagem: "Nota fiscal cadastrada com sucesso!",
             id: resultado.insertId
         });
     });
@@ -32,15 +36,19 @@ export function criar(req, res, next) {
 // Atualiza uma nota fiscal
 export function atualizar(req, res, next) {
     const id = req.params.id;
-    const { data_venda, forma_pagamento, valor_pago, id_pedido } = req.body ?? {};
+    const { chave_acesso, data_emissao, id_venda } = req.body ?? {};
 
-    if (!data_venda || !forma_pagamento || !valor_pago || !id_pedido) {
+    if (!chave_acesso && !data_emissao && !id_venda) {
         return res.status(400).json({ 
-            erro: "Informe data_venda, forma_pagamento, valor pago e id_pedido para atualizar." 
+            erro: "Informe ao menos um campo para atualizar." 
         });
     }
 
-    const dados = { data_venda, forma_pagamento, valor_pago, id_pedido };
+    const dados = {
+        chave_acesso: chave_acesso || null,
+        data_emissao: data_emissao || new Date(),
+        id_venda: id_venda || null
+    };
 
     notaFiscalModel.atualizar(id, dados, (erro, resultado) => {
         if (erro) return next(erro);

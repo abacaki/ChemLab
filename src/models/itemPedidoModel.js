@@ -9,14 +9,14 @@ export function listar(callback) {
 
 // Cadastra um item no pedido
 export function criar(dados, callback) {
-    const sql = "INSERT INTO item_pedido (id_produto, quantidade, preco_unitario, id_pedido, subtotal) VALUES (?, ?, ?, ?, ?)";
-    conexao.query(sql, [dados.id_produto, dados.quantidade, dados.preco_unitario, dados.id_pedido, dados.subtotal], callback);
+    const sql = "INSERT INTO item_pedido (id_produto, quantidade, preco_unitario, id_pedido) VALUES (?, ?, ?, ?)";
+    conexao.query(sql, [dados.id_produto, dados.quantidade, dados.preco_unitario, dados.id_pedido], callback);
 };
 
 // Atualiza um item do pedido
 export function atualizar(id, dados, callback) {
-    const sql = "UPDATE item_pedido SET id_produto = ?, quantidade = ?, preco_unitario = ?, id_pedido = ?, subtotal = ? WHERE id_item = ?";
-    conexao.query(sql, [dados.id_produto, dados.quantidade, dados.preco_unitario, dados.id_pedido, dados.subtotal, id], callback);
+    const sql = "UPDATE item_pedido SET id_produto = ?, quantidade = ?, preco_unitario = ?, id_pedido = ? WHERE id_item = ?";
+    conexao.query(sql, [dados.id_produto, dados.quantidade, dados.preco_unitario, dados.id_pedido, id], callback);
 };
 
 // Exclui um item do pedido

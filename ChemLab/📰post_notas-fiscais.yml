@@ -1,0 +1,25 @@
+info:
+  name: 📰post_notas-fiscais
+  type: http
+  seq: 17
+
+http:
+  method: POST
+  url: http://localhost:3000/notas-fiscais
+  body:
+    type: json
+    data: |-
+      {
+          "id_venda": 1,
+          "data_venda": "",
+          "forma_pagamento": "CARTAO_CREDITO",
+          "valor_pago": "250.00",
+          "id_pedido": 1
+        }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

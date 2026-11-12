@@ -12,13 +12,18 @@ export function listar(req, res, next) {
 export function criar(req, res, next) {
     const { data_venda, forma_pagamento, valor_pago, id_pedido } = req.body ?? {};
 
-    if (!data_venda || !forma_pagamento || !valor_pago || !id_pedido) {
+    if (!forma_pagamento || valor_pago === undefined || !id_pedido) {
         return res.status(400).json({ 
-            erro: "Informe data_venda, forma_pagamento, valor_pago e id_pedido." 
+            erro: "Informe forma_pagamento, valor_pago e id_pedido." 
         });
     }
 
-    const dados = { data_venda, forma_pagamento, valor_pago, id_pedido };
+    const dados = {
+        data_venda: data_venda || new Date(),
+        forma_pagamento,
+        valor_pago,
+        id_pedido
+    };
 
     vendaModel.criar(dados, (erro, resultado) => {
         if (erro) return next(erro);
@@ -34,13 +39,18 @@ export function atualizar(req, res, next) {
     const id = req.params.id;
     const { data_venda, forma_pagamento, valor_pago, id_pedido } = req.body ?? {};
 
-    if (!data_venda || !forma_pagamento || !valor_pago || !id_pedido) {
+    if (!data_venda && !forma_pagamento && valor_pago === undefined && !id_pedido) {
         return res.status(400).json({ 
-            erro: "Informe data_venda, forma_pagamento, valor_pago e id_pedido para atualizar." 
+            erro: "Informe ao menos um campo para atualizar." 
         });
     }
 
-    const dados = { data_venda, forma_pagamento, valor_pago, id_pedido };
+    const dados = {
+        data_venda: data_venda || new Date(),
+        forma_pagamento: forma_pagamento || null,
+        valor_pago: valor_pago ?? 0.00,
+        id_pedido: id_pedido || null
+    };
 
     vendaModel.atualizar(id, dados, (erro, resultado) => {
         if (erro) return next(erro);

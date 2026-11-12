@@ -1,0 +1,26 @@
+info:
+  name: 📝post_pedidos
+  type: http
+  seq: 15
+
+http:
+  method: POST
+  url: http://localhost:3000/pedidos
+  body:
+    type: json
+    data: |-
+      {
+          "id_pedido": 1,
+          "data_pedido": "",
+          "status_pedido": 1,
+          "valor_total": "210",
+          "id_cliente": 1,
+          "id_carrinho": 1
+        }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

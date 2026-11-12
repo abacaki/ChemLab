@@ -10,15 +10,15 @@ export function listar(req, res, next) {
 
 // Cadastra um item no pedido
 export function criar(req, res, next) {
-    const { id_produto, quantidade, preco_unitario, id_pedido, subtotal } = req.body ?? {};
+    const { id_produto, quantidade, preco_unitario, id_pedido } = req.body ?? {};
 
-    if (!id_produto || !quantidade || !preco_unitario || !id_pedido || subtotal === undefined) {
+    if (!id_produto || !quantidade || !preco_unitario || !id_pedido ) {
         return res.status(400).json({ 
-            erro: "Informe id_produto, quantidade, preco_unitario, id_pedido e subtotal." 
+            erro: "Informe id_produto, quantidade, preco_unitario, id_pedido ." 
         });
     }
 
-    const dados = { id_produto, quantidade, preco_unitario, id_pedido, subtotal };
+    const dados = { id_produto, quantidade, preco_unitario, id_pedido };
 
     itemPedidoModel.criar(dados, (erro, resultado) => {
         if (erro) return next(erro);
@@ -32,15 +32,15 @@ export function criar(req, res, next) {
 // Atualiza um item do pedido
 export function atualizar(req, res, next) {
     const id = req.params.id;
-    const { id_produto, quantidade, preco_unitario, id_pedido, subtotal } = req.body ?? {};
+    const { id_produto, quantidade, preco_unitario, id_pedido } = req.body ?? {};
 
-    if (!id_produto || !quantidade || !preco_unitario || !id_pedido || subtotal === undefined) {
+    if (!id_produto || !quantidade || !preco_unitario || !id_pedido ) {
         return res.status(400).json({ 
-            erro: "Informe id_produto, quantidade, preco_unitario, id_pedido e subtotal para atualizar." 
+            erro: "Informe id_produto, quantidade, preco_unitario, id_pedido  para atualizar." 
         });
     }
 
-    const dados = { id_produto, quantidade, preco_unitario, id_pedido, subtotal };
+    const dados = { id_produto, quantidade, preco_unitario, id_pedido };
 
     itemPedidoModel.atualizar(id, dados, (erro, resultado) => {
         if (erro) return next(erro);
