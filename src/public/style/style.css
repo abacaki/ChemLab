@@ -1,0 +1,966 @@
+
+/* =====================================================
+   CHEMLAB - ESTILIZAÇÃO PROFISSIONAL
+   Este arquivo controla a aparência de todas as páginas
+   do projeto: cores, tamanhos, espaçamentos e layouts.
+   ===================================================== */
+
+
+/* =====================================================
+   1. VARIÁVEIS GLOBAIS
+   Aqui definimos as cores e valores que serão reutilizados
+   em várias partes do site.
+   ===================================================== */
+
+:root {
+    --azul-escuro: #102a43; /* Cor principal do cabeçalho e títulos */
+    --azul: #1769aa;        /* Azul usado nos botões */
+    --azul-claro: #eaf4fb;  /* Azul claro para fundos */
+    --verde: #159b83;       /* Verde usado nos destaques */
+    --verde-hover: #107d6a; /* Verde quando o mouse passa no botão */
+    --fundo: #f4f7fa;       /* Cor de fundo das páginas */
+    --branco: #ffffff;      /* Cor branca */
+    --texto: #243447;       /* Cor dos textos principais */
+    --texto-secundario: #64748b; /* Cor dos textos secundários */
+    --borda: #e2e8f0;       /* Cor das bordas */
+    --vermelho: #dc3545;    /* Cor para mensagens de erro */
+
+    --raio: 12px; /* Arredondamento dos cantos */
+    --sombra: 0 5px 20px rgba(16, 42, 67, 0.08);
+    /* Sombra usada nos cartões e caixas */
+}
+
+
+/* =====================================================
+   2. RESET E CONFIGURAÇÕES GERAIS
+   Remove espaçamentos padrão do navegador e configura
+   os elementos básicos do site.
+   ===================================================== */
+
+* {
+    margin: 0;       /* Remove margem padrão */
+    padding: 0;      /* Remove espaçamento interno padrão */
+    box-sizing: border-box;
+    /* Faz largura e altura incluírem o padding e a borda */
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Faz a rolagem da página acontecer suavemente */
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    /* Define a fonte dos textos */
+
+    background: var(--fundo);
+    /* Aplica a cor de fundo definida nas variáveis */
+
+    color: var(--texto);
+    /* Define a cor padrão dos textos */
+
+    line-height: 1.6;
+    /* Define o espaço entre as linhas */
+}
+
+a {
+    text-decoration: none;
+    /* Remove o sublinhado dos links */
+
+    color: inherit;
+    /* Faz o link utilizar a cor do elemento pai */
+}
+
+button,
+input,
+select {
+    font: inherit;
+    /* Faz botões e campos utilizarem a mesma fonte da página */
+}
+
+
+/* =====================================================
+   3. CABEÇALHO E MENU
+   Organiza o nome ChemLab e os links de navegação.
+   Utiliza Flexbox para distribuir os elementos.
+   ===================================================== */
+
+.navbar {
+    min-height: 75px;
+    /* Define a altura mínima do cabeçalho */
+
+    padding: 15px 7%;
+    /* Espaçamento interno vertical e horizontal */
+
+    background: var(--branco);
+    /* Define o fundo branco */
+
+    display: flex;
+    /* Ativa o Flexbox para organizar os elementos */
+
+    align-items: center;
+    /* Alinha os elementos verticalmente */
+
+    justify-content: space-between;
+    /* Separa o logo e o menu */
+
+    gap: 20px;
+    /* Espaço entre os elementos */
+
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    /* Adiciona uma sombra discreta */
+
+    position: sticky;
+    /* Mantém o cabeçalho visível durante a rolagem */
+
+    top: 0;
+    /* Posiciona o cabeçalho no topo */
+
+    z-index: 100;
+    /* Mantém o cabeçalho acima de outros elementos */
+}
+
+.logo {
+    font-size: 27px;
+    /* Aumenta o tamanho do nome da loja */
+
+    font-weight: 800;
+    /* Deixa o nome em negrito */
+
+    color: var(--azul-escuro);
+    /* Define a cor do logo */
+
+    letter-spacing: -1px;
+    /* Ajusta o espaço entre as letras */
+}
+
+.navbar nav {
+    display: flex;
+    /* Organiza os links em linha */
+
+    align-items: center;
+    /* Alinha os links verticalmente */
+
+    gap: 22px;
+    /* Espaçamento entre os links */
+}
+
+.btn-link {
+    color: var(--azul);
+    /* Define a cor dos links */
+
+    font-weight: 600;
+    /* Deixa o texto um pouco mais forte */
+
+    transition: 0.2s;
+    /* Suaviza a mudança de cor */
+}
+
+.btn-link:hover {
+    color: var(--verde);
+    /* Muda a cor quando o mouse passa pelo link */
+}
+
+#usuario-logado {
+    color: var(--texto-secundario);
+    /* Cor do texto do usuário logado */
+
+    font-size: 14px;
+    /* Tamanho da fonte */
+}
+
+
+/* =====================================================
+   4. BANNER PRINCIPAL
+   É a área de destaque da página inicial.
+   Apresenta informações sobre os produtos e a empresa.
+   ===================================================== */
+
+.carrossel-banner {
+    min-height: 330px;
+    /* Define a altura mínima do banner */
+
+    padding: 65px 8%;
+    /* Espaçamento interno */
+
+    display: flex;
+    /* Ativa o Flexbox */
+
+    flex-direction: column;
+    /* Organiza os elementos verticalmente */
+
+    justify-content: center;
+    /* Centraliza o conteúdo na vertical */
+
+    background: linear-gradient(
+        120deg,
+        #102a43,
+        #1769aa,
+        #159b83
+    );
+    /* Cria um degradê entre azul-marinho, azul e verde */
+
+    color: var(--branco);
+    /* Deixa os textos brancos */
+}
+
+.slide {
+    display: none;
+    /* Esconde os slides inicialmente */
+
+    max-width: 750px;
+    /* Limita a largura do conteúdo */
+
+    min-height: 150px;
+    /* Define a altura mínima */
+
+    flex-direction: column;
+    /* Organiza o conteúdo verticalmente */
+
+    justify-content: center;
+    /* Centraliza o conteúdo */
+
+    gap: 18px;
+    /* Espaço entre os elementos */
+
+    animation: aparecer 0.6s ease;
+    /* Aplica uma animação de entrada */
+}
+
+.slide.ativa {
+    display: flex;
+    /* Mostra o slide que possui a classe ativa */
+}
+
+.slide::before {
+    content: "CHEMLAB • SOLUÇÕES PARA LABORATÓRIOS";
+    /* Adiciona um pequeno texto antes do conteúdo */
+
+    font-size: 12px;
+    /* Define o tamanho da fonte */
+
+    font-weight: 700;
+    /* Deixa o texto em negrito */
+
+    letter-spacing: 2px;
+    /* Aumenta o espaçamento entre as letras */
+
+    color: #b8f3e5;
+    /* Define uma cor verde-clara */
+}
+
+.slide {
+    font-size: 30px;
+    /* Define o tamanho do texto do banner */
+
+    font-weight: 700;
+    /* Deixa o texto em negrito */
+
+    line-height: 1.3;
+    /* Ajusta o espaço entre as linhas */
+}
+
+
+/* =====================================================
+   5. CONTEÚDO PRINCIPAL
+   Organiza o catálogo de produtos e o carrinho lado a lado.
+   Utiliza CSS Grid para criar duas colunas.
+   ===================================================== */
+
+.container-principal {
+    max-width: 1250px;
+    /* Limita a largura máxima do conteúdo */
+
+    width: 90%;
+    /* Ocupa 90% da largura disponível */
+
+    margin: 45px auto;
+    /* Centraliza o conteúdo e cria espaço vertical */
+
+    display: grid;
+    /* Ativa o sistema de grade do CSS */
+
+    grid-template-columns: minmax(0, 1fr) 340px;
+    /* Cria uma coluna flexível e outra de 340px */
+
+    align-items: start;
+    /* Alinha os elementos pelo início */
+
+    gap: 30px;
+    /* Espaço entre catálogo e carrinho */
+}
+
+.catalogo-section,
+.carrinho-section {
+    background: var(--branco);
+    /* Fundo branco das áreas */
+
+    padding: 25px;
+    /* Espaçamento interno */
+
+    border-radius: var(--raio);
+    /* Arredonda os cantos */
+
+    box-shadow: var(--sombra);
+    /* Adiciona sombra */
+}
+
+.catalogo-section h2,
+.carrinho-section h2 {
+    font-size: 22px;
+    /* Tamanho dos títulos */
+
+    color: var(--azul-escuro);
+    /* Cor dos títulos */
+
+    margin-bottom: 22px;
+    /* Espaço abaixo dos títulos */
+}
+
+
+/* =====================================================
+   6. CATÁLOGO DE PRODUTOS
+   Organiza os produtos em cartões.
+   O Grid permite distribuir os cartões automaticamente.
+   ===================================================== */
+
+#lista-produtos,
+.grid-produtos,
+.grade {
+    display: grid;
+    /* Ativa o CSS Grid */
+
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(210px, 1fr)
+    );
+    /* Cria colunas de no mínimo 210px */
+
+    gap: 20px;
+    /* Espaço entre os cartões */
+}
+
+.card,
+.card-produto,
+.produto-card {
+    background: var(--branco);
+    /* Fundo branco do cartão */
+
+    border: 1px solid var(--borda);
+    /* Adiciona uma borda fina */
+
+    border-radius: var(--raio);
+    /* Arredonda os cantos */
+
+    padding: 18px;
+    /* Espaçamento interno */
+
+    display: flex;
+    /* Ativa o Flexbox */
+
+    flex-direction: column;
+    /* Organiza as informações verticalmente */
+
+    gap: 10px;
+    /* Espaço entre as informações */
+
+    transition: 0.25s;
+    /* Suaviza os efeitos visuais */
+}
+
+.card:hover,
+.card-produto:hover,
+.produto-card:hover {
+    transform: translateY(-5px);
+    /* Move o cartão um pouco para cima */
+
+    box-shadow: var(--sombra);
+    /* Adiciona sombra ao passar o mouse */
+
+    border-color: #b7d5e9;
+    /* Muda a cor da borda */
+}
+
+.card img,
+.card-produto img,
+.produto-card img {
+    width: 100%;
+    /* Faz a imagem ocupar toda a largura */
+
+    height: 170px;
+    /* Define a altura da imagem */
+
+    object-fit: contain;
+    /* Mantém a imagem inteira sem distorcer */
+
+    border-radius: 8px;
+    /* Arredonda os cantos da imagem */
+
+    background: #f8fafc;
+    /* Fundo claro para a imagem */
+}
+
+.card h3,
+.card-produto h3,
+.produto-card h3 {
+    color: var(--azul-escuro);
+    /* Cor do nome do produto */
+
+    font-size: 17px;
+    /* Tamanho do nome */
+}
+
+.card p,
+.card-produto p,
+.produto-card p {
+    color: var(--texto-secundario);
+    /* Cor da descrição */
+
+    font-size: 14px;
+    /* Tamanho da descrição */
+}
+
+.preco {
+    color: var(--verde);
+    /* Destaca o preço em verde */
+
+    font-size: 20px;
+    /* Aumenta o tamanho do preço */
+
+    font-weight: 800;
+    /* Deixa o preço em negrito */
+}
+
+.estoque {
+    color: var(--verde);
+    /* Indica estoque disponível */
+
+    font-size: 13px;
+    /* Tamanho da informação */
+}
+
+.estoque.baixo {
+    color: var(--vermelho);
+    /* Indica estoque baixo em vermelho */
+}
+
+
+/* =====================================================
+   7. BOTÕES
+   Define o estilo dos botões de ações do sistema.
+   ===================================================== */
+
+button,
+.btn {
+    border: none;
+    /* Remove a borda padrão */
+
+    border-radius: 8px;
+    /* Arredonda os cantos */
+
+    padding: 11px 17px;
+    /* Define o tamanho interno */
+
+    background: var(--azul);
+    /* Cor de fundo */
+
+    color: var(--branco);
+    /* Cor do texto */
+
+    font-weight: 600;
+    /* Deixa o texto em negrito */
+
+    cursor: pointer;
+    /* Mostra a mãozinha do mouse */
+
+    transition: 0.2s;
+    /* Suaviza as mudanças */
+}
+
+button:hover,
+.btn:hover {
+    background: var(--azul-escuro);
+    /* Escurece o botão ao passar o mouse */
+
+    transform: translateY(-1px);
+    /* Move o botão levemente para cima */
+}
+
+button:disabled {
+    background: #aab6c2;
+    /* Cor de botão desativado */
+
+    cursor: not-allowed;
+    /* Mostra que não é possível clicar */
+
+    transform: none;
+    /* Remove o movimento */
+}
+
+.btn-primary {
+    background: var(--verde);
+    /* Botão principal em verde */
+}
+
+.btn-primary:hover {
+    background: var(--verde-hover);
+    /* Escurece o verde no hover */
+}
+
+.btn-sec {
+    background: var(--azul-claro);
+    /* Fundo azul claro */
+
+    color: var(--azul);
+    /* Texto azul */
+}
+
+.btn-sec:hover {
+    background: #d7eaf8;
+    /* Muda o fundo ao passar o mouse */
+
+    color: var(--azul-escuro);
+    /* Escurece o texto */
+}
+
+.btn-perigo {
+    background: #fff0f0;
+    /* Fundo vermelho claro */
+
+    color: var(--vermelho);
+    /* Texto vermelho */
+
+    border: 1px solid #ffd0d0;
+    /* Borda vermelha clara */
+}
+
+
+/* =====================================================
+   8. CARRINHO DE COMPRAS
+   Organiza os produtos adicionados ao carrinho,
+   as quantidades e o resumo da compra.
+   ===================================================== */
+
+.carrinho-section {
+    position: sticky;
+    /* Permite que o carrinho acompanhe a rolagem */
+
+    top: 100px;
+    /* Distância do topo quando estiver fixo */
+}
+
+#itens-carrinho {
+    display: flex;
+    /* Ativa o Flexbox */
+
+    flex-direction: column;
+    /* Coloca os itens um abaixo do outro */
+
+    gap: 12px;
+    /* Espaço entre os itens */
+}
+
+.linha-item {
+    padding: 13px;
+    /* Espaçamento interno */
+
+    background: #f8fafc;
+    /* Fundo claro */
+
+    border: 1px solid var(--borda);
+    /* Borda do item */
+
+    border-radius: 9px;
+    /* Arredonda os cantos */
+
+    display: flex;
+    /* Ativa o Flexbox */
+
+    flex-direction: column;
+    /* Organiza as informações em coluna */
+
+    gap: 8px;
+    /* Espaçamento entre as informações */
+}
+
+.qtd {
+    display: flex;
+    /* Organiza os controles de quantidade em linha */
+
+    align-items: center;
+    /* Alinha os elementos verticalmente */
+
+    gap: 8px;
+    /* Espaço entre os controles */
+}
+
+.carrinho-resumo {
+    margin-top: 20px;
+    /* Espaço acima do resumo */
+
+    padding-top: 18px;
+    /* Espaçamento interno superior */
+
+    border-top: 1px solid var(--borda);
+    /* Linha separando o resumo */
+}
+
+.carrinho-resumo p {
+    margin-bottom: 12px;
+    /* Espaço abaixo do parágrafo */
+}
+
+#total-carrinho {
+    color: var(--verde);
+    /* Destaca o valor total */
+
+    font-size: 23px;
+    /* Aumenta o tamanho do valor */
+
+    font-weight: 800;
+    /* Deixa o valor em negrito */
+}
+
+.carrinho-resumo label {
+    display: block;
+    /* Coloca o rótulo em uma linha própria */
+
+    font-weight: 600;
+    /* Destaca o texto */
+
+    margin-bottom: 7px;
+    /* Espaço abaixo do rótulo */
+}
+
+.carrinho-resumo select {
+    margin-bottom: 15px;
+    /* Espaço abaixo do campo de pagamento */
+}
+
+.btn-checkout,
+#finalizar-compra {
+    width: 100%;
+    /* Faz o botão ocupar toda a largura */
+
+    background: var(--verde);
+    /* Define o botão em verde */
+
+    margin-top: 10px;
+    /* Espaço acima do botão */
+}
+
+.btn-checkout:hover,
+#finalizar-compra:hover {
+    background: var(--verde-hover);
+    /* Escurece o botão ao passar o mouse */
+}
+
+
+/* =====================================================
+   9. CAMPOS DE FORMULÁRIO
+   Define o visual dos campos de texto e das listas
+   de seleção, como login, cadastro e pagamento.
+   ===================================================== */
+
+input,
+select {
+    width: 100%;
+    /* Ocupa toda a largura disponível */
+
+    padding: 13px 14px;
+    /* Espaçamento interno */
+
+    border: 1px solid var(--borda);
+    /* Borda fina */
+
+    border-radius: 8px;
+    /* Cantos arredondados */
+
+    background: var(--branco);
+    /* Fundo branco */
+
+    color: var(--texto);
+    /* Cor do texto */
+
+    outline: none;
+    /* Remove o contorno padrão do navegador */
+
+    transition: 0.2s;
+    /* Suaviza as mudanças */
+}
+
+input:focus,
+select:focus {
+    border-color: var(--azul);
+    /* Muda a borda quando o campo é selecionado */
+
+    box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.12);
+    /* Adiciona destaque ao campo selecionado */
+}
+
+
+/* =====================================================
+   10. TELA DE LOGIN E CADASTRO
+   Organiza a página onde o usuário entra na conta
+   ou cria um novo cadastro.
+   ===================================================== */
+
+.bg-login {
+    min-height: 100vh;
+    /* Faz o fundo ocupar toda a altura da tela */
+
+    background:
+        radial-gradient(circle at top left, #d9f2ed, transparent 40%),
+        var(--fundo);
+    /* Cria um efeito suave de cores no fundo */
+}
+
+.login-container {
+    max-width: 620px;
+    /* Limita a largura da caixa */
+
+    width: 92%;
+    /* Adapta a largura à tela */
+
+    margin: 45px auto;
+    /* Centraliza a caixa */
+
+    padding: 35px;
+    /* Espaçamento interno */
+
+    background: var(--branco);
+    /* Fundo branco */
+
+    border-radius: 16px;
+    /* Arredonda os cantos */
+
+    box-shadow: var(--sombra);
+    /* Adiciona sombra */
+}
+
+.login-container h1 {
+    font-size: 32px;
+    /* Tamanho do título ChemLab */
+
+    color: var(--azul-escuro);
+    /* Cor do título */
+
+    margin-bottom: 5px;
+    /* Espaço abaixo do título */
+}
+
+.login-container > p {
+    color: var(--texto-secundario);
+    /* Cor da descrição */
+
+    margin-bottom: 30px;
+    /* Espaço abaixo da descrição */
+}
+
+.form-box {
+    display: flex;
+    /* Ativa o Flexbox */
+
+    flex-direction: column;
+    /* Coloca os campos um abaixo do outro */
+
+    gap: 13px;
+    /* Espaço entre os campos */
+}
+
+.form-box h2 {
+    color: var(--azul-escuro);
+    /* Cor do título do formulário */
+
+    font-size: 21px;
+    /* Tamanho do título */
+
+    margin-bottom: 5px;
+    /* Espaço abaixo do título */
+}
+
+.form-box input {
+    min-height: 48px;
+    /* Define uma altura mínima para os campos */
+}
+
+.form-box button {
+    min-height: 45px;
+    /* Define a altura mínima do botão */
+
+    margin-top: 5px;
+    /* Espaço acima do botão */
+
+    background: var(--verde);
+    /* Fundo verde */
+}
+
+.form-box button:hover {
+    background: var(--verde-hover);
+    /* Escurece o botão ao passar o mouse */
+}
+
+.login-container hr {
+    border: none;
+    /* Remove a borda padrão */
+
+    border-top: 1px solid var(--borda);
+    /* Adiciona uma linha horizontal */
+
+    margin: 30px 0;
+    /* Espaço acima e abaixo da linha */
+}
+
+
+/* =====================================================
+   11. MENSAGENS DO SISTEMA
+   Define as cores das mensagens de sucesso e erro,
+   além da aparência do recibo da compra.
+   ===================================================== */
+
+.mensagem {
+    margin-top: 10px;
+    /* Espaço acima da mensagem */
+
+    font-weight: 600;
+    /* Deixa o texto em destaque */
+}
+
+.mensagem.erro {
+    color: var(--vermelho);
+    /* Mensagens de erro em vermelho */
+}
+
+.mensagem.ok {
+    color: var(--verde);
+    /* Mensagens de sucesso em verde */
+}
+
+.recibo {
+    padding: 18px;
+    /* Espaçamento interno */
+
+    margin-top: 15px;
+    /* Espaço acima do recibo */
+
+    background: #e9f8f2;
+    /* Fundo verde-claro */
+
+    border: 1px solid var(--verde);
+    /* Borda verde */
+
+    border-radius: var(--raio);
+    /* Cantos arredondados */
+
+    overflow-wrap: anywhere;
+    /* Evita que textos longos ultrapassem a caixa */
+}
+
+
+/* =====================================================
+   12. ANIMAÇÕES
+   Cria um efeito de entrada nos elementos da página.
+   ===================================================== */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        /* Começa transparente */
+
+        transform: translateY(12px);
+        /* Começa um pouco abaixo */
+    }
+
+    to {
+        opacity: 1;
+        /* Termina totalmente visível */
+
+        transform: translateY(0);
+        /* Termina na posição original */
+    }
+}
+
+
+/* =====================================================
+   13. RESPONSIVIDADE
+   Adapta o site para telas menores, como celulares
+   e tablets, evitando que os elementos fiquem apertados.
+   ===================================================== */
+
+@media (max-width: 900px) {
+    .container-principal {
+        grid-template-columns: 1fr;
+        /* Coloca catálogo e carrinho em uma coluna */
+    }
+
+    .carrinho-section {
+        position: static;
+        /* Remove a posição fixa do carrinho */
+    }
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 15px 5%;
+        /* Reduz o espaçamento do cabeçalho */
+
+        flex-direction: column;
+        /* Coloca logo e menu um abaixo do outro */
+
+        align-items: flex-start;
+        /* Alinha os elementos à esquerda */
+    }
+
+    .navbar nav {
+        width: 100%;
+        /* Ocupa toda a largura */
+
+        flex-wrap: wrap;
+        /* Permite quebrar os links em outra linha */
+
+        gap: 12px;
+        /* Espaço entre os links */
+    }
+
+    .carrossel-banner {
+        min-height: 250px;
+        /* Reduz a altura do banner */
+
+        padding: 35px 6%;
+        /* Reduz o espaçamento interno */
+    }
+
+    .slide {
+        font-size: 23px;
+        /* Diminui o texto do banner */
+    }
+
+    .container-principal {
+        width: 94%;
+        /* Aproveita melhor o espaço do celular */
+
+        margin: 25px auto;
+        /* Ajusta as margens */
+    }
+
+    .catalogo-section,
+    .carrinho-section {
+        padding: 18px;
+        /* Reduz o espaço interno dos cartões */
+    }
+
+    .login-container {
+        padding: 23px;
+        /* Reduz o espaço interno do login */
+
+        margin: 25px auto;
+        /* Ajusta a margem */
+    }
+
+    #lista-produtos,
+    .grid-produtos,
+    .grade {
+        grid-template-columns: 1fr;
+        /* Mostra um produto por linha */
+    }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemLab - Acesso ao Sistema</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body class="bg-login">
+    <main class="login-container">
+        <h1>ChemLab</h1>
+        <p>Reagentes e Vidrarias para Laboratórios</p>
+        
+        <form id="formLogin" class="form-box">
+            <h2>Entrar</h2>
+            <input type="text" id="login" placeholder="E-mail ou Login" required>
+            <input type="password" id="senha" placeholder="Senha" required>
+            <button type="submit" class="btn-primary">Aceder</button>
+        </form>
+
+        <hr>
+
+        <form id="formCadastro" class="form-box">
+            <h2>Novo Registo</h2>
+            <input type="text" id="cadNome" placeholder="Nome / Laboratório" required>
+            <input type="email" id="cadEmail" placeholder="E-mail" required>
+            <input type="text" id="cadTelefone" placeholder="Telefone" required>
+            <input type="password" id="cadSenha" placeholder="Crie uma senha" required>
+            <button type="submit" class="btn-secondary">Registar Conta</button>
+        </form>
+    </main>
+
+    <script src="js/login.js"></script>
+    <script>
+        // Interceção do formulário de registo
+        document.getElementById('formCadastro').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                nome: document.getElementById('cadNome').value,
+                email: document.getElementById('cadEmail').value,
+                telefone: document.getElementById('cadTelefone').value,
+                senha: document.getElementById('cadSenha').value
+            };
+            const res = await fetch('/api/registrar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (res.ok) {
+                alert('Conta criada! Agora faça login.');
+                e.target.reset();
+            } else {
+                alert(data.erro || 'Erro ao registar.');
+            }
+        });
+    </script>
+</body>
+</html>
