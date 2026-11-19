@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ChemLab - reagentes, vidrarias e equipamentos para laboratório.">
+  <title>ChemLab | Loja de Produtos para Laboratório</title>
+
+  <!-- Fontes do Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Arquivo CSS -->
+  <link rel="stylesheet" href="../style/style.css">
+
+  <!-- Arquivos JavaScript -->
+  <script src="../js/carrossel.js" defer></script>
+  <script src="../js/carrinho.js" defer></script>
+
+</head>
+
+<body>
+
+  <header class="site-header">
+
+    <div class="header-inner">
+
+      <a class="brand" href="index.html" aria-label="ChemLab - página inicial">
+
+        <span class="brand-mark">C<span>+</span></span>
+
+        <span class="brand-name">
+          Chem<span>Lab</span>
+          <small>SUPRIMENTOS CIENTÍFICOS</small>
+        </span>
+
+      </a>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        ☰
+      </button>
+
+      <nav class="main-nav" id="main-nav">
+
+        <a class="nav-link active" href="#inicio">Início</a>
+
+        <a class="nav-link" href="#produtos">Produtos</a>
+
+        <a class="nav-link" href="#categorias">Categorias</a>
+
+        <a class="nav-link" href="#sobre">Sobre nós</a>
+
+      </nav>
+
+      <div class="header-actions">
+
+        <a class="login-link" href="login.html">
+          Entrar
+        </a>
+
+        <a class="cart-shortcut" href="carrinho.html" aria-label="Ir para o carrinho">
+
+          <span class="cart-icon">🛒</span>
+          <span>Carrinho</span>
+          <span class="cart-count" id="contador-carrinho">
+            0
+          </span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <main>
+
+    <section class="hero" id="inicio">
+
+      <div class="hero-content">
+
+        <span class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          TECNOLOGIA E PRECISÃO PARA SEU LABORATÓRIO
+        </span>
+
+        <h1>
+          Ciência de qualidade.<br>
+          <span>Resultados extraordinários.</span>
+        </h1>
+
+        <p>
+          Encontre reagentes, vidrarias e equipamentos essenciais
+          para levar suas pesquisas mais longe.
+        </p>
+
+        <div class="hero-actions">
+
+          <a class="button button-primary" href="#produtos">
+            Explorar produtos <span>→</span>
+          </a>
+
+          <a class="button button-outline" href="#categorias">
+            Ver categorias
+          </a>
+
+        </div>
+
+        <div class="hero-benefits">
+
+          <div>
+            <strong>✓</strong>
+            Produtos selecionados
+          </div>
+
+          <div>
+            <strong>✓</strong>
+            Compra prática e segura
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="hero-visual">
+
+        <div class="hero-glow"></div>
+
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1000&q=85"
+          alt="Pesquisadora trabalhando em um laboratório">
+
+        <div class="floating-note">
+
+          <span class="note-icon">✦</span>
+
+          <span>
+            <strong>Seu laboratório</strong>
+            <small>começa aqui.</small>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="hero-decoration">
+        CHEMISTRY / SCIENCE / INNOVATION
+      </div>
+
+    </section>
+
+    <section class="trust-strip" aria-label="Diferenciais da ChemLab">
+
+      <div>
+        <span>✧</span>
+        <p>
+          <strong>Qualidade</strong>
+          <small>Seleção cuidadosa</small>
+        </p>
+      </div>
+
+      <div>
+        <span>⌁</span>
+        <p>
+          <strong>Variedade</strong>
+          <small>Para várias aplicações</small>
+        </p>
+      </div>
+
+      <div>
+        <span>◈</span>
+        <p>
+          <strong>Praticidade</strong>
+          <small>Compra em poucos passos</small>
+        </p>
+      </div>
+
+      <div>
+        <span>◎</span>
+        <p>
+          <strong>Atendimento</strong>
+          <small>Suporte ao cliente</small>
+        </p>
+      </div>
+
+    </section>
+
+    <section class="section categories-section" id="categorias">
+
+      <div class="section-heading">
+
+        <div>
+          <span class="section-kicker">EXPLORE A CHEMLAB</span>
+
+          <h2>
+            Encontre por <span>categoria</span>
+          </h2>
+        </div>
+
+        <p>
+          Os materiais certos para cada etapa do seu trabalho.
+        </p>
+
+      </div>
+
+
+      <div class="category-grid">
+
+        <button class="category-card" data-category="Reagentes">
+
+          <span class="category-symbol">⚗</span>
+
+          <strong>Reagentes</strong>
+
+          <small>Substâncias e soluções</small>
+
+          <span class="category-arrow">↗</span>
+
+        </button>
+
+
+        <button class="category-card" data-category="Vidrarias">
+
+          <span class="category-symbol">◒</span>
+
+          <strong>Vidrarias</strong>
+
+          <small>Precisão em cada medida</small>
+
+          <span class="category-arrow">↗</span>
+
+        </button>
+
+
+        <button class="category-card" data-category="Equipamentos">
+
+          <span class="category-symbol">⌬</span>
+
+          <strong>Equipamentos</strong>
+
+          <small>Estrutura para sua rotina</small>
+
+          <span class="category-arrow">↗</span>
+
+        </button>
+
+
+        <button class="category-card" data-category="Acessórios">
+
+          <span class="category-symbol">✣</span>
+
+          <strong>Acessórios</strong>
+
+          <small>Detalhes que fazem diferença</small>
+
+          <span class="category-arrow">↗</span>
+
+        </button>
+
+      </div>
+
+    </section>
+
+    <section class="section products-section" id="produtos">
+
+      <div class="section-heading products-heading">
+
+        <div>
+
+          <span class="section-kicker">NOSSO CATÁLOGO</span>
+
+          <h2>
+            Produtos em <span>destaque</span>
+          </h2>
+
+        </div>
+
+        <label class="search-box">
+
+          <span>⌕</span>
+
+          <input id="busca-produtos" type="search" placeholder="Buscar produto..." aria-label="Buscar produtos">
+
+        </label>
+
+      </div>
+
+      <div class="catalog-toolbar">
+
+        <div class="filter-list" id="filtros-categoria">
+
+          <button class="filter-button active" data-filter="Todos">
+            Todos
+          </button>
+
+          <button class="filter-button" data-filter="Reagentes">
+            Reagentes
+          </button>
+
+          <button class="filter-button" data-filter="Vidrarias">
+            Vidrarias
+          </button>
+
+          <button class="filter-button" data-filter="Equipamentos">
+            Equipamentos
+          </button>
+
+          <button class="filter-button" data-filter="Acessórios">
+            Acessórios
+          </button>
+
+        </div>
+
+        <span class="product-results" id="quantidade-resultados">
+          Produtos selecionados
+        </span>
+
+      </div>
+
+      <div class="carousel-container">
+
+        <button class="carousel-btn anterior" id="anterior" aria-label="Produtos anteriores" type="button">
+          &#10094;
+        </button>
+
+        <div class="carousel-window">
+
+          <div class="product-grid" id="lista-produtos" aria-live="polite"></div>
+
+        </div>
+
+        <button class="carousel-btn proximo" id="proximo" aria-label="Próximos produtos" type="button">
+          &#10095;
+        </button>
+
+      </div>
+
+      <div class="carousel-indicators" id="indicadores" aria-label="Páginas dos produtos"></div>
+
+      <p class="catalog-note">
+        * Produtos e valores demonstrativos. O catálogo será conectado
+        ao banco de dados na etapa de integração.
+      </p>
+
+    </section>
+
+    <section class="promo-banner" id="sobre">
+
+      <div class="promo-content">
+
+        <span class="section-kicker">
+          CHEMLAB • CIÊNCIA EM MOVIMENTO
+        </span>
+
+        <h2>
+          Seu próximo experimento<br>
+          começa com os materiais certos.
+        </h2>
+
+        <p>
+          Uma experiência simples para encontrar os suprimentos
+          que seu laboratório precisa.
+        </p>
+
+        <a class="button button-primary" href="#produtos">
+          Conhecer catálogo <span>→</span>
+        </a>
+
+      </div>
+
+      <div class="promo-orbit orbit-one"></div>
+
+      <div class="promo-orbit orbit-two"></div>
+
+      <div class="promo-flask">⚗</div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+
+    <div class="footer-main">
+
+      <a class="brand footer-brand" href="#inicio">
+
+        <span class="brand-mark">C<span>+</span></span>
+
+        <span class="brand-name">
+          Chem<span>Lab</span>
+          <small>SUPRIMENTOS CIENTÍFICOS</small>
+        </span>
+
+      </a>
+
+      <p>
+        Materiais e soluções para quem transforma curiosidade em descoberta.
+      </p>
+
+      <div class="footer-links">
+
+        <a href="#inicio">Início</a>
+
+        <a href="#produtos">Produtos</a>
+
+        <a href="#categorias">Categorias</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>© 2026 ChemLab. Projeto acadêmico.</span>
+
+      <span>Feito para a ciência. ✦</span>
+
+    </div>
+
+  </footer>
+
+</body>
+
+</html>

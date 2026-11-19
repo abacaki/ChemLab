@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/login.css">
+  <script src="../js/login.js" defer></script>
+
+  <title>Login</title>
+
+</head>
+
+<body class="login-page">
+  <main class="login-card">
+    <p class="bem-vindo">Bem-vindo de volta!</p>
+    <p class="cadastro-txt"> Não tem conta? <a class="cadastro" href="cadastro.html"><span>Cadastre-se</span></a></p>
+    <form class="login-form" id="form-login">
+
+      <label for="email">E-mail</label>
+      <input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+
+      <label for="senha">Senha</label>
+      <input id="senha" name="senha" type="password" placeholder="Digite sua senha" autocomplete="current-password"
+        required>
+
+      <button class="button button-primary" type="submit">Entrar na conta <span>→</span></button>
+      <p class="login_message" id="mensagem_login" role="status"></p>
+    </form>
+    <a class="back-home" href="index.html">← Voltar para a loja</a>
+  </main>
+</body>
+
+</html>
