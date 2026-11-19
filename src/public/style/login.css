@@ -1,86 +1,132 @@
-/* Página de login */
-.login-page{
-    min-height: 100vh; 
-    display: grid; 
-    place-items: center; 
-    padding: 30px 18px; 
-    background: radial-gradient(circle at 20% 15%, rgba(54,145,164,.18), transparent 35%), var(--bg);
+/* Página de login e cadastro - Paleta Sálvia Fosca */
+.login-page,
+.login-page * {
+  box-sizing: border-box;
 }
-.login-card{
-    width: min(430px, 100%); 
-    padding: 36px; 
-    border: 1px solid var(--line); 
-    border-radius: 20px; 
-    background: var(--panel); 
-    box-shadow: var(--preto); 
+
+.login-page {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 30px 18px;
+  font-family: "DM Sans", sans-serif;
+  color: var(--lab-text, #2a4039);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(93, 166, 136, 0.24), transparent 44%),
+    var(--lab-bg, #d9e4dd);
 }
-.login-card h1 {
-    font: 800 27px Manrope, 
-    sans-serif;
+
+.login-card {
+  width: min(430px, 100%);
+  padding: 36px;
+  border: 1px solid var(--lab-line, #bfd0c6);
+  border-radius: 20px;
+  background: var(--lab-surface, #e6eee9);
+  box-shadow: 0 20px 55px rgba(23, 43, 37, 0.08);
 }
+
+.login-card h1,
+.login-card .bem-vindo {
+  margin: 6px 0 10px;
+  color: var(--lab-ink, #172b25);
+  font: 800 32px/1.2 "Manrope", sans-serif;
+  letter-spacing: -0.8px;
+  text-align: center;
+}
+
 .login-card > p {
-    margin: 7px 0 24px;
-    color: var(--blue-fog); 
-    font-size: 12px;
+  margin: 7px 0 24px;
+  color: var(--lab-muted, #526961);
+  font-size: 13px;
 }
-.login-form label{
-    display: block; 
-    margin: 14px 0 6px; 
-    color: #c6d2dd; 
-    font-size: 15px; 
-    font-weight: 600;
+
+.login-card .cadastro-txt {
+  margin: 0 0 26px;
+  color: var(--lab-muted, #526961);
+  text-align: center;
+  font-size: 14px;
 }
-.login-form input{
-    width: 100%; 
-    height: 46px; 
-    padding: 0 13px; 
-    border: 1px solid var(--line); 
-    border-radius: 9px; 
-    outline: 0; 
-    background: #0b1623; 
-    color: var(--branco);
+
+.cadastro {
+  color: var(--lab-green-dark, #2f6e55);
+  font-weight: 700;
+  text-decoration: none;
 }
-.login-form input:focus {
-    border-color: var(--cyan);
-}
-.login-form .button{
-    width: 100%; 
-    margin-top: 30px;
-    font-size: 15px;
-}
-.login-card .bem-vindo{
-    margin-top: 10px;
-    color: var(--branco);
-    font-size: 35px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 10px;
-}
-.login-message {
-    margin-top: 25px;
-    color: var(--cyan);
-    font-size: 11px;
-    text-align: center;
-}
-.back-home{
-    display: block;
-    margin-top: 20px; 
-    color: var(--blue-fog); 
-    text-align: center; 
-    font-size: 13px;
-}
-.login-card .cadastro-txt{
-    margin: 1px;
-    color: var(--blue-fog);
-    text-align: center;
-    font-size: 15px;
-    margin-bottom: 30px;
-}
-.cadastro{
-    color: var(--cyan);
-    font-weight: 600;
-    text-decoration: none;
-}
+
 .cadastro:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+.login-form label {
+  display: block;
+  margin: 14px 0 6px;
+  color: var(--lab-ink, #172b25);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.login-form input {
+  width: 100%;
+  height: 46px;
+  padding: 0 13px;
+  border: 1px solid var(--lab-line, #bfd0c6);
+  border-radius: 10px;
+  outline: 0;
+  background: #d7e3dc;
+  color: var(--lab-ink, #172b25);
+  font: 400 14px "DM Sans", sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.login-form input::placeholder {
+  color: #6b8179;
+}
+
+.login-form input:focus {
+  background: #edf3ef;
+  border-color: var(--lab-green, #5da688);
+  box-shadow: 0 0 0 3px rgba(93, 166, 136, 0.22);
+}
+
+.login-form .button,
+.login-form .button-primary {
+  width: 100%;
+  height: 48px;
+  margin-top: 26px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(115deg, var(--lab-green, #5da688), var(--lab-green-light, #83c2a7));
+  color: #122922;
+  font: 700 15px "DM Sans", sans-serif;
+  cursor: pointer;
+  box-shadow: 0 7px 18px rgba(47, 110, 85, 0.18);
+  transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.login-form .button:hover,
+.login-form .button-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(47, 110, 85, 0.26);
+}
+
+.login-message {
+  margin-top: 18px;
+  color: var(--lab-green-dark, #2f6e55);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.back-home {
+  display: block;
+  margin-top: 20px;
+  color: var(--lab-muted, #526961);
+  text-align: center;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.back-home:hover {
+  color: var(--lab-green-dark, #2f6e55);
 }

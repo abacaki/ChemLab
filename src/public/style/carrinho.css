@@ -1,0 +1,218 @@
+/* Página do carrinho - Paleta Sálvia Fosca */
+.home-page .cart-shortcut.active {
+  border-color: var(--lab-green, #5da688);
+  background: var(--lab-green-soft, #cde0d5);
+}
+
+.cart-section {
+  padding-top: 48px;
+  padding-bottom: 40px;
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1.45fr 0.85fr;
+  align-items: start;
+  gap: 28px;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.empty-cart {
+  padding: 56px 24px;
+  border-radius: 20px;
+  border: 1px dashed #a6bdb0;
+  background: var(--lab-surface, #e6eee9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  box-shadow: 0 10px 30px rgba(23, 43, 37, 0.04);
+}
+
+.empty-cart span {
+  width: 54px;
+  height: 54px;
+  margin-bottom: 6px;
+  border-radius: 14px;
+  background: var(--lab-green-soft, #cde0d5);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+}
+
+.empty-cart strong {
+  color: var(--lab-ink, #172b25);
+  font: 700 18px "Manrope", sans-serif;
+}
+
+.empty-cart small {
+  color: var(--lab-muted, #526961);
+  font-size: 14px;
+}
+
+.cart-item {
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid var(--lab-line, #bfd0c6);
+  background: var(--lab-surface, #e6eee9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  box-shadow: 0 8px 24px rgba(23, 43, 37, 0.05);
+}
+
+.cart-item img {
+  width: 74px;
+  height: 74px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--lab-surface-alt, #cedbd3);
+  flex-shrink: 0;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-info h3,
+.cart-item-info h4 {
+  color: var(--lab-ink, #172b25);
+  font: 700 16px "Manrope", sans-serif;
+}
+
+.cart-item-info p,
+.cart-item-info small {
+  color: var(--lab-muted, #526961);
+  font-size: 13px;
+}
+
+.cart-item-actions,
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-item button {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid var(--lab-line, #bfd0c6);
+  background: #d7e3dc;
+  color: var(--lab-ink, #172b25);
+  font-weight: 700;
+}
+
+.cart-item button:hover {
+  border-color: var(--lab-green, #5da688);
+  color: var(--lab-green-dark, #2f6e55);
+}
+
+.cart-summary {
+  padding: 28px;
+  border-radius: 20px;
+  border: 1px solid var(--lab-line, #bfd0c6);
+  background: var(--lab-surface, #e6eee9);
+  box-shadow: 0 14px 36px rgba(23, 43, 37, 0.07);
+}
+
+.cart-summary h3 {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--lab-line, #bfd0c6);
+  color: var(--lab-ink, #172b25);
+  font: 800 20px "Manrope", sans-serif;
+  letter-spacing: -0.4px;
+}
+
+.summary-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: var(--lab-text, #2a4039);
+  font-size: 14px;
+}
+
+.summary-line strong {
+  color: var(--lab-ink, #172b25);
+  font-weight: 700;
+}
+
+.summary-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--lab-line, #bfd0c6);
+  color: var(--lab-ink, #172b25);
+  font: 700 16px "Manrope", sans-serif;
+}
+
+.summary-total strong {
+  color: var(--lab-green-dark, #2f6e55);
+  font: 800 22px "Manrope", sans-serif;
+}
+
+.payment-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--lab-ink, #172b25);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cart-summary select {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid var(--lab-line, #bfd0c6);
+  background: #d7e3dc;
+  color: var(--lab-ink, #172b25);
+  font: 500 14px "DM Sans", sans-serif;
+  outline: 0;
+  cursor: pointer;
+}
+
+.cart-summary select:focus {
+  border-color: var(--lab-green, #5da688);
+  background: #edf3ef;
+}
+
+.checkout-button {
+  width: 100%;
+  height: 48px;
+  margin-top: 18px;
+  font-size: 15px;
+}
+
+.checkout-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.secure-note {
+  display: block;
+  margin-top: 14px;
+  text-align: center;
+  color: var(--lab-muted, #526961);
+  font-size: 12px;
+}
+
+@media (max-width: 850px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+}

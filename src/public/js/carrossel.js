@@ -1,234 +1,173 @@
-// Pega os elementos principais do carrossel no HTML.
-const trilho = document.getElementById("lista-produtos");
-const botaoAnterior = document.getElementById("anterior");
-const botaoProximo = document.getElementById("proximo");
-const boxIndicadores = document.getElementById("indicadores");
+{
+  const endpointProdutos = "http://localhost:3000/produtos";
+  const imagemPadrao = "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80";
 
-// Controla em qual card o carrossel está e evita cliques seguidos durante a animação.
-let posicaoAtual = 0;
-let totalProdutos = 0;
-let animando = false;
-let tempoAnimacao = null;
-  
-// Define quantos produtos aparecem lado a lado conforme o tamanho da tela.
-function verQuantosCabem() {
-  if (window.innerWidth <= 600) {
-    return 1;
-  }
-  if (window.innerWidth <= 950) {
-    return 2;
-  }
-  return 3;
-}
+  let todosProdutos = [];
+  let produtosDestaque = [];
+  let categoriaAtual = "Todos";
+  let textoBusca = "";
+  let indiceAtual = 0;
 
-// Descobre qual é o índice real do produto ativo (descontando os clones das pontas).
-function pegarIndiceReal() {
-  const visiveis = verQuantosCabem();
+  async function carregarProdutos() {
+    const grade = document.getElementById("lista-produtos");
+    if (!grade) return;
 
-  if (totalProdutos <= visiveis) {
-    return 0;
-  }
+    try {
+      const resposta = await fetch(endpointProdutos);
+      if (!resposta.ok) throw new Error("Erro ao buscar produtos.");
 
-  let real = (posicaoAtual - visiveis) % totalProdutos;
-  if (real < 0) {
-    real = real + totalProdutos;
-  }
-  return real;
-}
+      const dados = await resposta.json();
 
-// Desloca o trilho para a posição atual, ligando ou desligando a transição suave.
-function moverTrilho(comAnimacao) {
-  if (!trilho) return;
+      todosProdutos = dados.map((item) => {
+        const idProduto = item.id_produto ?? item.id;
+        return {
+          id: idProduto,
+          nome: item.nome_produto ?? item.nome ?? "Produto sem nome",
+          descricao: item.descricao ?? "Equipamento laboratorial.",
+          preco: Number(item.preco_unitario ?? item.preco ?? 0),
+          categoria: item.categoria ?? "Geral",
+          estoque: item.estoque ?? 0,
+          imagem:
+            item.imagem ||
+            (window.imagensPorId && window.imagensPorId[idProduto]) ||
+            imagemPadrao
+        };
+      });
 
-  const visiveis = verQuantosCabem();
-
-  if (comAnimacao) {
-    trilho.style.transition = "transform 0.4s ease";
-  } else {
-    trilho.style.transition = "none";
-  }
-
-  // Calcula o deslocamento contando a largura de 1 card + 20px de espaçamento.
-  trilho.style.transform = `translateX(calc(-${posicaoAtual} * ((100% + 20px) / ${visiveis})))`;
-
-  // Quando reposiciona sem animação, força o navegador a aplicar a mudança na hora.
-  if (!comAnimacao) {
-    trilho.offsetHeight;
-  }
-}
-
-// Cria as bolinhas indicadoras embaixo do carrossel.
-function montarIndicadores() {
-  if (!boxIndicadores || !trilho) return;
-
-  const visiveis = verQuantosCabem();
-
-  // Se houver 3 ou menos produtos no filtro, esconde as bolinhas.
-  if (totalProdutos <= visiveis) {
-    boxIndicadores.innerHTML = "";
-    return;
-  }
-
-  const ativo = pegarIndiceReal();
-  let htmlBolinhas = "";
-
-  for (let i = 0; i < totalProdutos; i++) {
-    const classeAtiva = i === ativo ? "ativo" : "";
-    htmlBolinhas += `<span data-posicao="${i}" class="${classeAtiva}"></span>`;
-  }
-
-  boxIndicadores.innerHTML = htmlBolinhas;
-}
-
-// Troca a bolinha destacada conforme o usuário navega pelos produtos.
-function atualizarIndicadores() {
-  if (!boxIndicadores) return;
-
-  const ativo = pegarIndiceReal();
-  const bolinhas = boxIndicadores.querySelectorAll("span");
-
-  for (let i = 0; i < bolinhas.length; i++) {
-    if (i === ativo) {
-      bolinhas[i].classList.add("ativo");
-    } else {
-      bolinhas[i].classList.remove("ativo");
+      filtrarProdutos();
+    } catch (erro) {
+      console.error("Erro ao carregar produtos:", erro);
+      grade.innerHTML = `<p class="no-products">Erro ao conectar com o servidor.</p>`;
     }
   }
-}
 
-// Quando o slide para em um clone, pula em silêncio para o card original equivalente.
-function ajustarLoopInfinito() {
-  if (!animando) return;
-  animando = false;
+  function filtrarProdutos() {
+    const filtrados = todosProdutos.filter((produto) => {
+      const mesmaCategoria =
+        categoriaAtual === "Todos" ||
+        produto.categoria.toLowerCase() === categoriaAtual.toLowerCase();
 
-  const visiveis = verQuantosCabem();
-  if (totalProdutos <= visiveis) return;
+      const mesmaBusca = produto.nome.toLowerCase().includes(textoBusca.toLowerCase());
 
-  // Se passou do 6º produto (entrou nos clones do fim), volta para o início real.
-  if (posicaoAtual >= totalProdutos + visiveis) {
-    posicaoAtual = posicaoAtual - totalProdutos;
-    moverTrilho(false);
-  }
-  // Se voltou antes do 1º produto (entrou nos clones do começo), vai para o fim real.
-  else if (posicaoAtual < visiveis) {
-    posicaoAtual = posicaoAtual + totalProdutos;
-    moverTrilho(false);
-  }
-}
+      return mesmaCategoria && mesmaBusca;
+    });
 
-// Inicia o movimento para o próximo ou anterior.
-function irParaSlide(novaPosicao) {
-  const visiveis = verQuantosCabem();
-
-  // Não faz nada se couber tudo na tela ou se já estiver deslizando.
-  if (totalProdutos <= visiveis || animando) return;
-
-  animando = true;
-  posicaoAtual = novaPosicao;
-  moverTrilho(true);
-  atualizarIndicadores();
-
-  // Garante que o ajuste invisível aconteça mesmo se o transitionend atrasar.
-  clearTimeout(tempoAnimacao);
-  tempoAnimacao = setTimeout(ajustarLoopInfinito, 450);
-}
-
-// Monta os clones nas pontas e inicia o carrossel (também usada ao filtrar produtos).
-function atualizarCarrossel(voltarAoInicio = true) {
-  if (!trilho) return;
-
-  const indiceAnterior = voltarAoInicio ? 0 : pegarIndiceReal();
-
-  // Apaga clones antigos antes de criar os novos.
-  const clonesAntigos = trilho.querySelectorAll(".product-card.clone");
-  for (let i = 0; i < clonesAntigos.length; i++) {
-    clonesAntigos[i].remove();
+    produtosDestaque = filtrados.slice(0, 6);
+    indiceAtual = 0;
+    mostrarCarrossel();
   }
 
-  const cardsOriginais = Array.from(trilho.querySelectorAll(".product-card"));
-  totalProdutos = cardsOriginais.length;
-  const visiveis = verQuantosCabem();
+  function mostrarCarrossel() {
+    const grade = document.getElementById("lista-produtos");
+    const contador = document.getElementById("quantidade-resultados");
+    const indicadores = document.getElementById("indicadores");
 
-  clearTimeout(tempoAnimacao);
-  animando = false;
+    if (!grade) return;
 
-  // Se tiver poucos produtos no filtro atual, deixa parado e trava as setas.
-  if (totalProdutos <= visiveis) {
-    posicaoAtual = 0;
-    trilho.style.transition = "none";
-    trilho.style.transform = "translateX(0px)";
-    if (botaoAnterior) botaoAnterior.disabled = true;
-    if (botaoProximo) botaoProximo.disabled = true;
-    montarIndicadores();
-    return;
+    if (contador) {
+      contador.textContent =
+        produtosDestaque.length === 1
+          ? "1 produto em destaque"
+          : `${produtosDestaque.length} produtos em destaque`;
+    }
+
+    if (produtosDestaque.length === 0) {
+      grade.innerHTML = `<p class="no-products">Nenhum produto encontrado.</p>`;
+      if (indicadores) indicadores.innerHTML = "";
+      return;
+    }
+
+    const visiveis = produtosDestaque.slice(indiceAtual, indiceAtual + 3);
+
+    grade.innerHTML = visiveis.map((produto) => `
+      <article class="product-card">
+        <a class="product-image" href="produtos.html">
+          <span class="product-tag">Estoque: ${produto.estoque}</span>
+          <img src="${produto.imagem}" alt="${produto.nome}" onerror="this.src='${imagemPadrao}'">
+        </a>
+        <div class="product-info">
+          <span class="product-category">${produto.categoria}</span>
+          <h3><a href="produtos.html">${produto.nome}</a></h3>
+          <p class="product-description">${produto.descricao}</p>
+          <div class="product-bottom">
+            <span class="product-price">R$ ${produto.preco.toFixed(2).replace(".", ",")}</span>
+            <button type="button" class="add-button" data-id="${produto.id}">+</button>
+          </div>
+        </div>
+      </article>
+    `).join("");
+
+    if (indicadores) {
+      const totalPassos = Math.max(1, produtosDestaque.length - 2);
+      let bolinhas = "";
+      for (let i = 0; i < totalPassos; i++) {
+        bolinhas += `<button type="button" class="${i === indiceAtual ? "active" : ""}" data-slide="${i}"></button>`;
+      }
+      indicadores.innerHTML = bolinhas;
+    }
   }
 
-  // Copia os últimos produtos para antes do 1º (permite voltar direto do 1º para o 6º).
-  const ultimosCards = cardsOriginais.slice(-visiveis);
-  for (let i = ultimosCards.length - 1; i >= 0; i--) {
-    const clone = ultimosCards[i].cloneNode(true);
-    clone.classList.add("clone");
-    clone.setAttribute("aria-hidden", "true");
-    trilho.prepend(clone);
-  }
+  document.addEventListener("DOMContentLoaded", () => {
+    carregarProdutos();
 
-  // Copia os primeiros produtos para depois do último (permite seguir direto do 6º para o 1º).
-  const primeirosCards = cardsOriginais.slice(0, visiveis);
-  for (let i = 0; i < primeirosCards.length; i++) {
-    const clone = primeirosCards[i].cloneNode(true);
-    clone.classList.add("clone");
-    clone.setAttribute("aria-hidden", "true");
-    trilho.append(clone);
-  }
+    document.getElementById("lista-produtos")?.addEventListener("click", (e) => {
+      const botao = e.target.closest(".add-button");
+      if (!botao) return;
 
-  // Posiciona no primeiro card real (logo depois dos clones do início).
-  posicaoAtual = visiveis + (indiceAnterior % totalProdutos);
-  moverTrilho(false);
+      const produto = todosProdutos.find((p) => Number(p.id) === Number(botao.dataset.id));
+      if (produto && typeof adicionarAoCarrinho === "function") {
+        adicionarAoCarrinho(produto);
+        botao.textContent = "✓";
+        setTimeout(() => (botao.textContent = "+"), 700);
+      }
+    });
 
-  if (botaoAnterior) botaoAnterior.disabled = false;
-  if (botaoProximo) botaoProximo.disabled = false;
-  montarIndicadores();
-}
+    document.getElementById("indicadores")?.addEventListener("click", (e) => {
+      const dot = e.target.closest("button[data-slide]");
+      if (!dot) return;
+      indiceAtual = Number(dot.dataset.slide);
+      mostrarCarrossel();
+    });
 
-// Avisa quando a transição CSS termina para fazer a troca invisível dos clones.
-if (trilho) {
-  trilho.addEventListener("transitionend", function (event) {
-    if (event.target !== trilho || event.propertyName !== "transform") return;
-    clearTimeout(tempoAnimacao);
-    ajustarLoopInfinito();
+    document.getElementById("anterior")?.addEventListener("click", () => {
+      const maxIndice = Math.max(0, produtosDestaque.length - 3);
+      indiceAtual = indiceAtual > 0 ? indiceAtual - 1 : maxIndice;
+      mostrarCarrossel();
+    });
+
+    document.getElementById("proximo")?.addEventListener("click", () => {
+      const maxIndice = Math.max(0, produtosDestaque.length - 3);
+      indiceAtual = indiceAtual < maxIndice ? indiceAtual + 1 : 0;
+      mostrarCarrossel();
+    });
+
+    document.getElementById("busca-produtos")?.addEventListener("input", (e) => {
+      textoBusca = e.target.value;
+      filtrarProdutos();
+    });
+
+    document.querySelectorAll("#filtros-categoria .filter-button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelector("#filtros-categoria .active")?.classList.remove("active");
+        btn.classList.add("active");
+        categoriaAtual = btn.dataset.filter;
+        filtrarProdutos();
+      });
+    });
+
+    document.querySelectorAll(".category-card[data-category]").forEach((card) => {
+      card.addEventListener("click", () => {
+        categoriaAtual = card.dataset.category;
+        document.querySelectorAll("#filtros-categoria .filter-button").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.filter === categoriaAtual);
+        });
+        filtrarProdutos();
+        document.getElementById("produtos")?.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    document.getElementById("menu-toggle")?.addEventListener("click", () => {
+      document.getElementById("main-nav")?.classList.toggle("open");
+    });
   });
 }
-
-// Avança 1 card ao clicar na seta da direita.
-if (botaoProximo) {
-  botaoProximo.addEventListener("click", function () {
-    irParaSlide(posicaoAtual + 1);
-  });
-}
-
-// Volta 1 card ao clicar na seta da esquerda.
-if (botaoAnterior) {
-  botaoAnterior.addEventListener("click", function () {
-    irParaSlide(posicaoAtual - 1);
-  });
-}
-
-// Vai direto para o produto correspondente ao clicar em uma bolinha.
-if (boxIndicadores) {
-  boxIndicadores.addEventListener("click", function (event) {
-    const bolinha = event.target.closest("span[data-posicao]");
-    if (!bolinha) return;
-
-    const visiveis = verQuantosCabem();
-    const posicaoEscolhida = Number(bolinha.dataset.posicao);
-    irParaSlide(visiveis + posicaoEscolhida);
-  });
-}
-
-// Reajusta o carrossel se o tamanho da janela mudar.
-window.addEventListener("resize", function () {
-  atualizarCarrossel(false);
-});
-
-// Inicia o carrossel quando a página termina de carregar.
-atualizarCarrossel();

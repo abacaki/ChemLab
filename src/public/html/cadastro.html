@@ -29,6 +29,9 @@
             <label for="telefone">Telefone</label>
             <input id="telefone" name="telefone" type="tel" maxlength="15" placeholder="Ex: (11) 99413-2000" autocomplete="tel" required>
 
+            <label for="endereco">Endereço</label>
+            <input id="endereco" name="endereco" type="text" maxlength="255" placeholder="Ex: Rua das Flores, 123 - Centro" autocomplete="street-address" required>
+            
             <label for="email">E-mail</label>
             <input id="email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
 
@@ -40,7 +43,7 @@
 
             <button class="button button-primary" type="submit">Cadastrar conta <span>→</span></button>
 
-            <p class="cadastro_message" id="mensagem_cadastro" role="status"></p>
+            <p class="login-message" id="mensagem-cadastro" role="status"></p>
         </form>
 
         <a class="back-home" href="index.html">← Voltar para a loja</a>
