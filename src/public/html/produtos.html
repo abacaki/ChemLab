@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Produtos | ChemLab</title>
+
+    <!-- CSS principal -->
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <div class="container">
+
+            <a href="index.html" class="logo">
+                <span class="logo-icon">C</span>
+
+                <div>
+                    <h2>ChemLab</h2>
+                    <small>SUPRIMENTOS CIENTÍFICOS</small>
+                </div>
+            </a>
+
+            <!-- MENU DE NAVEGAÇÃO -->
+            <nav class="nav-menu">
+
+                <a href="index.html">Início</a>
+
+                <a href="produtos.html" class="ativo">Produtos</a>
+
+                <a href="index.html#categorias">Categorias</a>
+
+                <a href="index.html#sobre">Sobre nós</a>
+
+            </nav>
+
+            <!-- AÇÕES DO USUÁRIO -->
+            <div class="header-actions">
+
+                <a href="login.html">Entrar</a>
+
+                <a href="carrinho.html" class="link-carrinho">
+                    🛒 Carrinho
+                    <span id="contador-carrinho">0</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+
+        <section class="catalogo">
+
+            <div class="container">
+
+                <!-- TÍTULO E PESQUISA -->
+                <div class="catalogo-topo">
+
+                    <div>
+                        <span class="subtitulo">
+                            NOSSO CATÁLOGO
+                        </span>
+
+                        <h1>
+                            Produtos em <span>destaque</span>
+                        </h1>
+
+                        <p>
+                            Encontre reagentes, vidrarias e equipamentos
+                            para seu laboratório.
+                        </p>
+                    </div>
+
+                    <!-- CAMPO DE PESQUISA -->
+                    <div class="campo-pesquisa">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="search"
+                            id="busca-produto"
+                            placeholder="Buscar produto..."
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- FILTROS DE CATEGORIA -->
+                <div class="filtros">
+
+                    <button class="filtro ativo" data-categoria="Todos">
+                        Todos
+                    </button>
+
+                    <button class="filtro" data-categoria="Reagentes">
+                        Reagentes
+                    </button>
+
+                    <button class="filtro" data-categoria="Vidrarias">
+                        Vidrarias
+                    </button>
+
+                    <button class="filtro" data-categoria="Equipamentos">
+                        Equipamentos
+                    </button>
+
+                    <button class="filtro" data-categoria="Acessórios">
+                        Acessórios
+                    </button>
+
+                </div>
+
+
+                <!-- QUANTIDADE DE PRODUTOS -->
+                <div class="catalogo-info">
+
+                    <span id="quantidade-produtos">
+                        Produtos disponíveis
+                    </span>
+
+                </div>
+
+
+                <!-- LISTA DE PRODUTOS -->
+                <div
+                    class="produtos-grid"
+                    id="produtos-container"
+                >
+
+                    <!-- Os produtos serão carregados pelo JavaScript -->
+
+                </div>
+
+
+                <!-- MENSAGEM QUANDO NÃO ENCONTRAR PRODUTOS -->
+                <div id="mensagem-vazia" hidden>
+
+                    <h2>Nenhum produto encontrado</h2>
+
+                    <p>
+                        Tente pesquisar por outro nome ou categoria.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="logo">
+                <span class="logo-icon">C</span>
+
+                <div>
+                    <h2>ChemLab</h2>
+                    <small>SUPRIMENTOS CIENTÍFICOS</small>
+                </div>
+            </div>
+
+            <p>
+                Materiais e soluções para quem transforma
+                curiosidade em descoberta.
+            </p>
+
+            <div class="footer-links">
+
+                <a href="index.html">Início</a>
+
+                <a href="produtos.html">Produtos</a>
+
+                <a href="index.html#categorias">Categorias</a>
+
+            </div>
+
+            <p class="copyright">
+                © 2026 ChemLab. Projeto acadêmico.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- JAVASCRIPT DOS PRODUTOS -->
+    <script src="../js/produtos.js" defer></script>
+
+    <!-- JAVASCRIPT DO CARRINHO -->
+    <script src="../js/carrinho.js" defer></script>
+
+</body>
+</html>

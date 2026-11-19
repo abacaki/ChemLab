@@ -10,11 +10,12 @@ http:
     type: json
     data: |-
       {
-          "id_cliente": 1,
-          "nome": "Benicio",
-          "email": "benicio@email.com",
-          "telefone": "123"
-        }
+        "nome": "Victória Dantas",
+        "cpf_cnpj": 12345678909,
+        "email": "victoria@exemplo.com",
+        "telefone": "(11) 99413-2000",
+        "endereco": "Rua das Flores, 123 - Centro"
+      }
   auth: inherit
 
 settings:

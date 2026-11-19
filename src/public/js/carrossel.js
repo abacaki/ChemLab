@@ -9,7 +9,7 @@ let posicaoAtual = 0;
 let totalProdutos = 0;
 let animando = false;
 let tempoAnimacao = null;
-
+  
 // Define quantos produtos aparecem lado a lado conforme o tamanho da tela.
 function verQuantosCabem() {
   if (window.innerWidth <= 600) {

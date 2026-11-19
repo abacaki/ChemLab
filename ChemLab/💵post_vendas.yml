@@ -6,6 +6,14 @@ info:
 http:
   method: POST
   url: http://localhost:3000/vendas
+  body:
+    type: json
+    data: |-
+      {
+        "forma_pagamento": "PIX",
+        "valor_pago": 94.50,
+        "id_pedido": 2
+      }
   auth: inherit
 
 settings:

@@ -13,7 +13,7 @@ http:
           "id_produto": 1,
           "quantidade": 12,
           "preco_unitario": 10,
-          "id_pedido": 1
+          "id_pedido": 2
         }
   auth: inherit
 

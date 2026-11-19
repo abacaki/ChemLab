@@ -10,10 +10,10 @@ http:
     type: json
     data: |-
       {
-          "id_carrinho": 4,
+          "id_carrinho": 1,
           "data_criacao": "",
           "status_carrinho": 3,
-          "id_cliente": 2
+          "id_cliente": 1
       }
   auth: inherit
 

@@ -6,6 +6,15 @@ info:
 http:
   method: POST
   url: http://localhost:3000/produtos
+  body:
+    type: json
+    data: |-
+      {
+        "nome": "produto",
+        "descricao": "Recipiente",
+        "estoque": 2,
+        "preco": 18.90
+      }
   auth: inherit
 
 settings:

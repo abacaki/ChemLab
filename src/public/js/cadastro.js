@@ -1,51 +1,49 @@
-// addEventListener("submit") identifica quando o formulário é enviado.
-document.getElementById("form-cadastro")?.addEventListener("submit", event => {
-
-  // Impede que a página seja recarregada automaticamente
-  // quando o formulário for enviado.
+document.getElementById("form-cadastro")?.addEventListener("submit", async event => {
   event.preventDefault();
 
   const nome = document.getElementById("nome").value.trim();
+  const cpf_cnpj = document.getElementById("cpf_cnpj").value.trim();
+  const telefone = document.getElementById("telefone").value.trim();
   const email = document.getElementById("email").value.trim().toLowerCase();
   const senha = document.getElementById("senha").value;
   const confirmar = document.getElementById("conf_senha").value;
-  const mensagem = document.getElementById("mensagem_cadastro");
+  const mensagem = document.getElementById("mensagem-cadastro");
 
-
-  // Verifica se a senha e a confirmação são diferentes.
   if (senha !== confirmar) {
-
     mensagem.textContent = "As senhas não são iguais.";
     return;
   }
 
+  try {
+    // Envia os dados para a API em Express
+    const resposta = await fetch("http://localhost:3000/clientes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ nome, cpf_cnpj, telefone, email, senha })
+    });
 
-  // Busca no localStorage uma conta que já foi cadastrada.
-  // JSON.parse transforma os dados armazenados em um objeto JavaScript.
-  // Se não existir nenhuma conta, utiliza null.
-  const usuarioAtual = JSON.parse(localStorage.getItem("chemlab_usuario") || "null");
+    const dados = await resposta.json();
 
+    if (!resposta.ok) {
+      mensagem.textContent = dados.mensagem || "Erro ao cadastrar conta.";
+      return;
+    }
 
-  // Verifica se já existe uma conta cadastrada com o mesmo e-mail.
-  // ?. permite acessar o email somente se usuarioAtual existir.
-  if (usuarioAtual?.email === email) {
+    // Guarda apenas os dados básicos da sessão para mostrar o nome na loja
+    localStorage.setItem("chemlab_sessao", JSON.stringify({
+      id: dados.id,
+      nome,
+      email
+    }));
 
-    mensagem.textContent = "Já existe uma conta cadastrada com esse e-mail.";
-    return;
+    mensagem.textContent = "Conta criada com sucesso! Indo para a loja...";
+    setTimeout(() => {
+      location.href = "index.html";
+    }, 700);
+
+  } catch (erro) {
+    mensagem.textContent = "Não foi possível conectar ao servidor.";
   }
-
-  localStorage.setItem("chemlab_usuario", JSON.stringify({ nome, email, senha }));
-
-
-  // Salva os dados da sessão do usuário.
-  // Isso permite que o sistema identifique que ele acabou de entrar na conta.
-  localStorage.setItem("chemlab_sessao", JSON.stringify({ nome, email }));
-
-  mensagem.textContent = "Conta criada com sucesso! Indo para a loja...";
-
-  setTimeout(() => {
-
-    location.href = "index.html";
-
-  }, 700);
 });

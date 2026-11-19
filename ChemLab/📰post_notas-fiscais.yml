@@ -12,7 +12,7 @@ http:
       {
           "chave_acesso": "1",
           "data_emissao": "",
-          "id_venda": 1
+          "id_venda": 2
         }
   auth: inherit
 
