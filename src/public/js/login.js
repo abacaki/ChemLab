@@ -1,8 +1,6 @@
-const API_URL = "http://localhost:3000";
+const api = "http://localhost:3000";
 
-const formularioLogin = document.getElementById("form-login");
-
-formularioLogin?.addEventListener("submit", async event => {
+document.getElementById("form-login")?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const email = document.getElementById("email").value.trim().toLowerCase();
@@ -15,18 +13,16 @@ formularioLogin?.addEventListener("submit", async event => {
   }
 
   try {
-    // 1. Busca os usuários cadastrados na API
-    const respostaUsuarios = await fetch(`${API_URL}/usuarios`);
+
+    const respostaUsuarios = await fetch(`${api}/usuarios`);
     if (!respostaUsuarios.ok) {
       mensagem.textContent = "Erro ao consultar usuários no servidor.";
       return;
     }
 
     const usuarios = await respostaUsuarios.json();
-
-    // 2. Verifica se existe um usuário com esse login (e-mail) e senha
     const usuarioEncontrado = usuarios.find(
-      u => u.login?.toLowerCase() === email && u.senha === senha
+      (u) => u.login?.trim().toLowerCase() === email && u.senha === senha
     );
 
     if (!usuarioEncontrado) {
@@ -34,18 +30,17 @@ formularioLogin?.addEventListener("submit", async event => {
       return;
     }
 
-    // 3. Busca o nome do cliente vinculado para exibir na loja
+
     let nomeCliente = usuarioEncontrado.nome || email;
-    const respostaClientes = await fetch(`${API_URL}/clientes`);
+    const respostaClientes = await fetch(`${api}/clientes`);
     if (respostaClientes.ok) {
       const clientes = await respostaClientes.json();
       const cliente = clientes.find(
-        c => (c.id_cliente ?? c.id) === usuarioEncontrado.id_cliente
+        (c) => (c.id_cliente ?? c.id) === usuarioEncontrado.id_cliente
       );
       if (cliente?.nome) nomeCliente = cliente.nome;
     }
 
-    // 4. Salva a sessão no mesmo padrão usado pelo cadastro.js e carrinho.js
     localStorage.setItem("chemlab_sessao", JSON.stringify({
       id_cliente: usuarioEncontrado.id_cliente,
       nome: nomeCliente,

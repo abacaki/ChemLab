@@ -10,7 +10,7 @@ export function listar(req, res, next) {
 
 // Cadastra um produto
 export function criar(req, res, next) {
-    const { nome, descricao, preco, estoque } = req.body ?? {};
+    const { nome, descricao, preco, estoque, categoria, imagem } = req.body ?? {};
 
     if (!nome || !descricao || preco === undefined || estoque === undefined) {
         return res.status(400).json({ 
@@ -18,7 +18,14 @@ export function criar(req, res, next) {
         });
     }
 
-    const dados = { nome, descricao, preco, estoque };
+    const dados = {
+        nome,
+        descricao,
+        preco,
+        estoque,
+        categoria: categoria || "Geral",
+        imagem: imagem || null
+    };
 
     produtoModel.criar(dados, (erro, resultado) => {
         if (erro) return next(erro);
@@ -32,7 +39,7 @@ export function criar(req, res, next) {
 // Atualiza um produto
 export function atualizar(req, res, next) {
     const id = req.params.id;
-    const { nome, descricao, preco, estoque } = req.body ?? {};
+    const { nome, descricao, preco, estoque, categoria, imagem } = req.body ?? {};
 
     if (!nome || !descricao || preco === undefined || estoque === undefined) {
         return res.status(400).json({ 
@@ -40,7 +47,14 @@ export function atualizar(req, res, next) {
         });
     }
 
-    const dados = { nome, descricao, preco, estoque };
+    const dados = {
+        nome,
+        descricao,
+        preco,
+        estoque,
+        categoria: categoria || "Geral",
+        imagem: imagem || null
+    };
 
     produtoModel.atualizar(id, dados, (erro, resultado) => {
         if (erro) return next(erro);

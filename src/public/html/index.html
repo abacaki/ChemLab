@@ -21,10 +21,20 @@
   <!-- Arquivos JavaScript -->
   <script src="../js/carrossel.js" defer></script>
   <script src="../js/carrinho.js" defer></script>
+  <script src="../js/sessao.js" defer></script>
 
 </head>
 
 <body class="home-page">
+
+  <!-- Fundo parallax (imagem definida no CSS: images/becker.png) -->
+  <div class="parallax-bg" aria-hidden="true">
+    <div class="p-photo" id="p-photo"></div>
+    <span class="p-layer p-glow glow-1" data-speed="0.12"></span>
+    <span class="p-layer p-glow glow-2" data-speed="0.28"></span>
+    <span class="p-layer p-ring ring-1" data-speed="0.20"></span>
+    <span class="p-layer p-ring ring-2" data-speed="0.40"></span>
+  </div>
 
   <header class="site-header">
 
@@ -128,14 +138,14 @@
 
       </div>
 
-      <div class="hero-visual">
+      <div class="hero-visual" data-float="-0.07">
 
         <div class="hero-glow"></div>
 
         <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1000&q=85"
           alt="Pesquisadora trabalhando em um laboratório">
 
-        <div class="floating-note">
+        <div class="floating-note" data-float="-0.14">
 
           <span class="note-icon">✦</span>
 
@@ -348,19 +358,6 @@
 
       <div class="promo-content">
 
-        <span class="section-kicker">
-          CHEMLAB • CIÊNCIA EM MOVIMENTO
-        </span>
-
-        <h2>
-          Seu próximo experimento<br>
-          começa com os materiais certos.
-        </h2>
-
-        <p>
-          Uma experiência simples para encontrar os suprimentos
-          que seu laboratório precisa.
-        </p>
 
         <a class="button button-primary" href="produtos.html">
           Conhecer catálogo <span>→</span>
@@ -418,6 +415,55 @@
     </div>
 
   </footer>
+
+  <!-- Script do efeito parallax -->
+  <script>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var foto = document.getElementById('p-photo');
+      var layers = document.querySelectorAll('.p-layer');
+      var floats = document.querySelectorAll('[data-float]');
+      var ticking = false;
+
+      function atualizar() {
+        var y = window.scrollY;
+
+        // Foto de fundo: percorre toda a imagem enquanto a página rola
+        if (foto) {
+          var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          var progresso = maxScroll > 0 ? y / maxScroll : 0;
+          var sobra = foto.offsetHeight - window.innerHeight;
+          foto.style.transform = 'translate3d(0,' + (-progresso * sobra) + 'px,0)';
+        }
+
+        // Glows e anéis: cada um em uma velocidade
+        layers.forEach(function (el) {
+          var speed = parseFloat(el.dataset.speed) || 0.2;
+          el.style.transform = 'translate3d(0,' + (-y * speed) + 'px,0)';
+        });
+
+        // Elementos da frente (hero): se movem mais rápido que a página
+        var yHero = Math.min(y, 900);
+        floats.forEach(function (el) {
+          var speed = parseFloat(el.dataset.float) || 0;
+          el.style.transform = 'translate3d(0,' + (yHero * speed) + 'px,0)';
+        });
+
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          requestAnimationFrame(atualizar);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', atualizar);
+      atualizar();
+    })();
+  </script>
 
 </body>
 

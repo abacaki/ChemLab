@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style/style.css">
+  <link rel="stylesheet" href="../style/login.css">
+  <script src="../js/cadastro_produto.js" defer></script>
+
+  <title>ChemLab | Novo Produto</title>
+</head>
+
+<body class="login-page">
+  <main class="login-card">
+    <p class="bem-vindo">Novo Produto</p>
+    <p class="cadastro-txt">Área restrita para administradores</p>
+
+    <form class="login-form" id="form-produto">
+      <label for="nome">Nome do Produto</label>
+      <input id="nome" name="nome" type="text" placeholder="Ex: Béquer 500ml" required>
+
+      <label for="categoria">Categoria</label>
+      <select id="categoria" name="categoria" required>
+        <option value="Reagentes">Reagentes</option>
+        <option value="Vidrarias">Vidrarias</option>
+        <option value="Equipamentos">Equipamentos</option>
+        <option value="Acessórios">Acessórios</option>
+      </select>
+
+      <label for="descricao">Descrição</label>
+      <input id="descricao" name="descricao" type="text" placeholder="Ex: Recipiente graduado em vidro borossilicato" required>
+
+      <label for="preco">Preço (R$)</label>
+      <input id="preco" name="preco" type="number" step="0.01" min="0.01" placeholder="Ex: 18.90" required>
+
+      <label for="estoque">Estoque</label>
+      <input id="estoque" name="estoque" type="number" min="0" placeholder="Ex: 15" required>
+
+      <label for="imagem">Imagem (caminho ou URL)</label>
+      <input id="imagem" name="imagem" type="text" placeholder="Ex: ../images/becker.png ou https://...">
+
+      <button class="button button-primary" type="submit">Cadastrar produto <span>→</span></button>
+
+      <p class="login-message" id="mensagem_produto" role="status"></p>
+    </form>
+
+    <a class="back-home" href="produtos.html">← Voltar para produtos</a>
+  </main>
+</body>
+
+</html>
