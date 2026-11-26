@@ -35,6 +35,17 @@ async function carregarProdutos() {
   }
 }
 
+// ENCONTRA O OBJETO DO PRODUTO PELO ID E ENVIA PARA O CARRINHO
+function comprarProduto(id) {
+  const produto = todosOsProdutos.find(function (item) {
+    return String(item.id_produto || item.id) === String(id);
+  });
+
+  if (produto && typeof adicionarAoCarrinho === "function") {
+    adicionarAoCarrinho(produto);
+  }
+}
+
 // FILTRA E MONTA OS CARDS NA TELA
 function renderizarProdutos() {
   const container = document.getElementById("lista-produtos");
@@ -96,7 +107,7 @@ function renderizarProdutos() {
     if (semEstoque) {
       botaoAddHtml = '<button class="add-button" type="button" disabled title="Produto esgotado">+</button>';
     } else {
-      botaoAddHtml = '<button class="add-button" type="button" onclick="adicionarAoCarrinho(' + id + ')" title="Adicionar ao carrinho">+</button>';
+      botaoAddHtml = '<button class="add-button" type="button" onclick="comprarProduto(' + id + ')" title="Adicionar ao carrinho">+</button>';
     }
 
     let botoesAdminHtml = "";
