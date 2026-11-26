@@ -18,10 +18,10 @@
   <!-- Arquivo CSS -->
   <link rel="stylesheet" href="../style/style.css">
 
-  <!-- Arquivos JavaScript -->
-  <script src="../js/carrossel.js" defer></script>
-  <script src="../js/carrinho.js" defer></script>
+  <!-- Arquivos JavaScript (sessao.js primeiro) -->
   <script src="../js/sessao.js" defer></script>
+  <script src="../js/carrinho.js" defer></script>
+  <script src="../js/carrossel.js" defer></script>
 
 </head>
 
@@ -358,6 +358,14 @@
 
       <div class="promo-content">
 
+        <span class="section-kicker">SOBRE A CHEMLAB</span>
+
+        <h2>Qualidade e precisão para cada experimento.</h2>
+
+        <p>
+          Fornecemos reagentes, vidrarias e equipamentos selecionados para
+          laboratórios acadêmicos, pesquisas e rotina científica.
+        </p>
 
         <a class="button button-primary" href="produtos.html">
           Conhecer catálogo <span>→</span>
@@ -429,7 +437,6 @@
       function atualizar() {
         var y = window.scrollY;
 
-        // Foto de fundo: percorre toda a imagem enquanto a página rola
         if (foto) {
           var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
           var progresso = maxScroll > 0 ? y / maxScroll : 0;
@@ -437,13 +444,11 @@
           foto.style.transform = 'translate3d(0,' + (-progresso * sobra) + 'px,0)';
         }
 
-        // Glows e anéis: cada um em uma velocidade
         layers.forEach(function (el) {
           var speed = parseFloat(el.dataset.speed) || 0.2;
           el.style.transform = 'translate3d(0,' + (-y * speed) + 'px,0)';
         });
 
-        // Elementos da frente (hero): se movem mais rápido que a página
         var yHero = Math.min(y, 900);
         floats.forEach(function (el) {
           var speed = parseFloat(el.dataset.float) || 0;
